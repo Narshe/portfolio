@@ -1,0 +1,122 @@
+@import "~bootstrap/dist/css/bootstrap.min";
+@import "~bootstrap-datepicker/dist/css/bootstrap-datepicker.min";
+@import "_variables.scss";
+
+body {
+    background-color: $green;
+}
+
+body.fixed-nav {
+  margin-top: 4rem;
+}
+
+
+.navbar-sidenav {
+  position:absolute;
+  top:0;
+  left:0;
+  margin-top: 56px;
+  flex-direction: column !important;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width:250px;
+  padding-top:10px;
+
+   li {
+       height: 50px;
+       a {
+           display: block;
+       }
+   }
+}
+
+
+.navbar {
+
+    li {
+        a {
+            padding: 1em;
+            text-decoration: none;
+            color: #868e96;
+        }
+    }
+
+    li.active {
+        background-color: #2d3155;
+
+        > a {
+            color: $green;
+        }
+    }
+
+}
+
+/*
+.navbar li a{
+  padding: 1em;
+  text-decoration: none;
+  color: #868e96;
+}
+
+.navbar li.active {
+
+    background-color: #2d3135;
+}
+
+.navbar li.active > a {
+    color: #a1de74;
+}
+
+*/
+.main-content {
+  background-color: #FFF;
+  min-height: 1000px;
+  padding-top: 1rem;
+}
+
+
+.file {
+
+    input[type='file'] {
+        margin-top: 10px;
+    }
+
+    .file-buttons {
+        padding: 10px 0 10px 0;
+    }
+}
+
+/*
+.file input[type='file'] {
+
+    margin-top: 10px;
+}
+
+.file .file-buttons {
+
+    padding: 10px 0 10px 0;
+}
+*/
+
+.breadcrum {
+  background-color: #e9ecef;
+}
+
+.realisations-skills {
+    min-height: 250px;
+}
+
+.experience-img{
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin: 10px 0 10px 0;
+  height:150px;
+}
+
+@media screen and (min-width: 992px) {
+
+    .main-content {
+        margin-left: 250px;
+    }
+}
