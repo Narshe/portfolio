@@ -14,8 +14,10 @@ class AddLevelsToSkillsTable extends Migration
     public function up()
     {
         Schema::table('skills', function (Blueprint $table) {
-            $table->integer('level_id')->unsigned();
-            $table->foreign('level_id')->references('id')->on('levels');
+            $table->unsignedinteger('level_id')->default(1);
+            $table->foreign('level_id')
+                ->references('id')
+                ->on('levels');
         });
     }
 

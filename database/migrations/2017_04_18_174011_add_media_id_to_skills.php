@@ -14,7 +14,7 @@ class AddMediaIdToSkills extends Migration
     public function up()
     {
         Schema::table('skills', function (Blueprint $table) {
-          $table->integer('media_id');
+          $table->integer('media_id')->nullable();
           $table->index('media_id');
         });
     }

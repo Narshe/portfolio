@@ -21,10 +21,10 @@
     <section id="hobbies" class="hobbies">
         @include('Sections.hobbies')
     </section>
-
+{{--
     <section id="contact" class="contact">
         @include('layouts._flash')
         @include('Sections.contact')
-    </section>
+    </section> --}}
 
 @endsection

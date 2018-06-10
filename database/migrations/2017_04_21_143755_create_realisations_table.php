@@ -16,11 +16,12 @@ class CreateRealisationsTable extends Migration
         Schema::create('realisations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('company')->default('NULL');
+            $table->unsignedinteger('category_id');
+            $table->string('company')->nullable();
             $table->dateTime('date_begin');
             $table->dateTime('date_end');
             $table->string('position');
-            $table->string('url')->default('NULL');
+            $table->string('url')->nullable();
             $table->boolean('visible')->default(1);
 
             $table->timestamps();

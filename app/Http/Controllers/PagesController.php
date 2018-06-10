@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Realisation;
 use App\Level;
 use App\School;
-use App\Category;
+use App\Hobby;
 use App\Skill;
 
 class PagesController extends Controller
@@ -16,24 +16,20 @@ class PagesController extends Controller
     public function home()
     {
 
-        $levels = Level::where('value', '>', 0)->orderBy('value', 'ASC')->get();
-        $realisations = Realisation::with('Medias')->where('visible', 1)->get();
-        $schools = School::orderBy('date_begin', 'DESC')->get();
+        $levels = Level::get();
+        $schools = School::get();
 
-        $skillsWithCategories = Category::with('skills', 'skills.level', 'skills.media')
-            ->where('type', 'Skill')
-            ->get()
-        ;
-        $realisationsWithCategories = Category::with('realisations','realisations.medias', 'realisations.skills')
-            ->where('type', 'Experience')
-            ->get()
-        ;
-        $hobbiesWithCategories = Category::with('hobbies','hobbies.media')
-            ->where('type', 'Hobby')
-            ->get()
-        ;
+        $skillsWithCategories = Skill::getVisibleSkills();
+        $realisationsWithCategories = Realisation::getVisibleRealisations();
+        $hobbiesWithCategories = Hobby::getVisibleHobbies();
 
-        return view('home', compact('realisationsWithCategories','skillsWithCategories', 'levels', 'schools', 'hobbiesWithCategories'));
+        return view('home', compact(
+            'skillsWithCategories',
+            'realisationsWithCategories',
+            'hobbiesWithCategories',
+            'levels',
+            'schools'
+        ));
     }
 
     public function admin()

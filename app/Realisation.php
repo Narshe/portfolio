@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Category;
+
 class Realisation extends Model
 {
     protected $fillable = ['name', 'company', 'date_begin', 'date_end', 'visible', 'url', 'position', 'category_id'];
@@ -28,14 +30,17 @@ class Realisation extends Model
         return $this->belongsToMany('App\Skill');
     }
 
-    public function setDateBeginAttribute($value)
+    public function getDateBeginAttribute($value)
     {
-        $this->attributes['date_begin'] = new \DateTime($value);
+        return new \Datetime($value);
+
+        // $this->attributes['date_begin'] = new \DateTime($value);
     }
 
-    public function setDateEndAttribute($value)
+    public function getDateEndAttribute($value)
     {
-        $this->attributes['date_end'] = new \DateTime($value);
+        return new \Datetime($value);
+        // $this->attributes['date_end'] = new \DateTime($value);
     }
 
     public function getCoverAttribute() {
@@ -46,5 +51,21 @@ class Realisation extends Model
                 return $media;
             }
         }
+    }
+
+    public static function getVisibleRealisations()
+    {
+         $experiences = Category::getCategories([
+             'visibleRealisations',
+             'visibleRealisations.medias',
+             'visibleRealisations.skills'
+              ],
+              'App\Experience'
+         );
+
+
+         return $experiences ? $experiences->reject(function($category) {
+             return $category->visibleRealisations->isEmpty();
+         }) : [];
     }
 }

@@ -15,8 +15,8 @@ class ChangeMediaToMotphTable extends Migration
     {
         Schema::table('medias', function(Blueprint $table){
 
-            $table->string('mediable_type');
-            $table->integer('mediable_id')->unsigned();
+            $table->string('mediable_type')->nullable();
+            $table->integer('mediable_id')->unsigned()->nullable();
         });
     }
 

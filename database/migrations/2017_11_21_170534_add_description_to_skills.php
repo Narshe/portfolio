@@ -14,7 +14,7 @@ class AddDescriptionToSkills extends Migration
     public function up()
     {
         Schema::table('skills', function (Blueprint $table) {
-          $table->mediumText('description');
+          $table->mediumText('description')->nullable();
         });
     }
 

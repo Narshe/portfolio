@@ -14,7 +14,7 @@ class AddTableToCategoriesTable extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-          $table->string('table');
+          $table->string('table')->nullable();
         });
     }
 

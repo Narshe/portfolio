@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Observers\SkillObserver;
 
+use App\Category;
+
 class Skill extends Model
 {
     protected $fillable = ['name', 'url', 'description', 'category_id', 'level_id', 'visible'];
@@ -36,4 +38,21 @@ class Skill extends Model
     {
         return $value ? explode(',', trim($value)) : false;
     }
+
+    public static function getVisibleSkills()
+    {
+        $skills = Category::getCategories([
+            'visibleSkills',
+            'visibleSkills.level',
+            'visibleSkills.media'],
+             Skill::class
+        );
+
+        return $skills ? $skills->reject(function($category) {
+            return $category->visibleSkills->isEmpty();
+        }) : [];
+
+    }
+
+
 }

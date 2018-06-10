@@ -22,8 +22,7 @@
                     <div class="col-12">
                         <h4>{{$category->name}}</h4>
                     </div>
-                    @foreach ($category->skills as $skill)
-                        @if ($skill->visible)
+                    @foreach ($category->visibleSkills as $skill)
                             <div class="col-6 col-sm-5 col-md-4 col-lg-3">
                                 <div class="card card-skill text-white mb-3" style="max-width: 20rem;">
                                     <span class="fa-icon">
@@ -38,9 +37,9 @@
                                             @endif
                                         </div>
 
-                                        <div class="card-body skill-img" style="background-image: url('{{ Storage::url($skill->media->path) }}')">
+                                        {{-- <div class="card-body skill-img" style="background-image: url('{{ Storage::url($skill->media->path) }}')">
 
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div id="blur" class="card-description blur">
                                         <div class="blur-content">
@@ -56,7 +55,6 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
                     @endforeach
                 </div>
             </div>
