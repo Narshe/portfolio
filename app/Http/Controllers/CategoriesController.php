@@ -6,6 +6,7 @@ use App\Category;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoriesRequest;
+use Illuminate\Validation\Rule;
 
 class CategoriesController extends AdminController
 {
@@ -25,26 +26,23 @@ class CategoriesController extends AdminController
 
     public function store(CategoriesRequest $request)
     {
-        $params = $request->all();
         $category = new Category();
-        if ($category->create($params)) {
+
+        if ($category->create($request->all())) {
             return redirect()->route('Categories')->with('success', 'Cette catégorie a bien été ajouté');
         } else {
             return view('Admin.Categories.create', compact('category'))->withErrors();
         }
     }
 
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
-
         return view('Admin.Categories.edit', compact('category'));
     }
 
-    public function update($id, CategoriesRequest $request)
+    public function update(Category $category, CategoriesRequest $request)
     {
-        $category = Category::findOrFail($id);
-
+    
         if ($category->update($request->all())) {
             return redirect()->route('Categories')->with('success', 'Cette catégorie a bien été édité');
         } else {
@@ -52,9 +50,8 @@ class CategoriesController extends AdminController
         }
     }
 
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $category = Category::findOrFail($id);
         $category->delete();
 
         return redirect()->route('Categories')->with('success', 'Cette catégorie a bien été supprimé');

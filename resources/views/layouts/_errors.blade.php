@@ -1,11 +1,13 @@
-@if(count($errors) > 0)
-  <div class="alert alert-danger" role="alert">
-    <ul>
-      @foreach($errors->all() as $error)
+@isset($error)
+    @if(count($errors) > 0)
+      <div class="alert alert-danger" role="alert">
+        <ul>
+          @foreach($errors->all() as $error)
 
-        <li>{{$error}}</li>
+            <li>{{$error}}</li>
 
-      @endforeach
-    </ul>
-  </div>
-@endif
+          @endforeach
+        </ul>
+      </div>
+    @endif
+@endisset

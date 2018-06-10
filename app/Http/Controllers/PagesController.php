@@ -15,7 +15,6 @@ class PagesController extends Controller
 
     public function home()
     {
-
         $levels = Level::get();
         $schools = School::get();
 

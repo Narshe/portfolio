@@ -16,6 +16,7 @@
 Route::get('/', 'PagesController@home')->name('home');
 Route::post('/contact/store', 'ContactsController@store')->name('ContactStore');
 
+
 Route::group(['prefix' => 'adminBlablaNomATrouver', 'middleware' => 'auth.basic.once'], function() {
 //************* Levels ***********************/
 
@@ -64,17 +65,16 @@ Route::group(['prefix' => 'adminBlablaNomATrouver', 'middleware' => 'auth.basic.
       Route::post('/store', 'CategoriesController@store')->name('CategoriesStore');
 
       //edit
-      Route::get('/{id}/edit', 'CategoriesController@edit')
-        ->where(['id' => '[0-9]+'])
+      Route::get('/{category}/edit', 'CategoriesController@edit')
         ->name('CategoriesEdit');
 
 
-      Route::patch('/{id}/edit', 'CategoriesController@update')
+      Route::patch('/{category}/edit', 'CategoriesController@update')
         ->where(['id' => '[0-9]+'])
         ->name('CategoriesUpdate');
 
       //delete
-      Route::delete('/{id}/destroy', 'CategoriesController@destroy')
+      Route::delete('/{category}/destroy', 'CategoriesController@destroy')
         ->name('CategoriesDestroy')
         ->where(['id' => '[0-9]+']);
 
