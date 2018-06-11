@@ -19,15 +19,12 @@ class CategoryTest extends TestCase
     public function it_should_return_the_categories_with_the_data_associated()
     {
 
-        $category = create('App\Category', ['type' => Skill::class]);
-        $skills = create('App\Skill', ['category_id' => $category->id], 2 );
+        $skills = create('App\Skill', [], 2 );
 
-        $data =  Category::getCategories(['skills'], Skill::class);
+        $categories =  Category::getCategories('skills',[], Skill::class);
 
-        $this->assertEquals($data[0]->name, $skills[0]->category->name);
-        $this->assertEquals($data[0]->skills[0]->name, $skills[0]->name);
-        $this->assertEquals($data[0]->skills[1]->name, $skills[1]->name);
-        $this->assertCount(2, $data[0]->skills);
+        $this->assertCount(2, $categories);
+        $this->assertCount(1, $categories[0]->skills);
 
     }
 
@@ -69,7 +66,7 @@ class CategoryTest extends TestCase
 
     private function assertVisible($modelName, $prop)
     {
-        $category = create('App\Category', ['type' => Skill::class]);
+        $category = create('App\Category', ['type' => $modelName]);
         create($modelName, ['visible' => 0, 'category_id' => $category->id]);
 
         $visibleModel = create($modelName, ['category_id' => $category->id]);
@@ -80,7 +77,7 @@ class CategoryTest extends TestCase
 
     private function assertHasManyRelation($modelName, $prop)
     {
-        $category = create('App\Category', ['type' => Realisation::class]);
+        $category = create('App\Category', ['type' => $modelName]);
         $model = create($modelName, ['category_id' => $category->id]);
 
         $this->assertInstanceOf($modelName, $category->$prop[0]);

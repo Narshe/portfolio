@@ -36,6 +36,7 @@ class CreateCategoriesTest extends TestCase
         ;
     }
 
+
     /** @test */
     public function category_name_is_unique()
     {

@@ -55,17 +55,12 @@ class Realisation extends Model
 
     public static function getVisibleRealisations()
     {
-         $experiences = Category::getCategories([
+         return Category::getCategories(
              'visibleRealisations',
-             'visibleRealisations.medias',
-             'visibleRealisations.skills'
-              ],
+             ['visibleRealisations.medias','visibleRealisations.skills'],
               'App\Experience'
          );
 
 
-         return $experiences ? $experiences->reject(function($category) {
-             return $category->visibleRealisations->isEmpty();
-         }) : [];
     }
 }

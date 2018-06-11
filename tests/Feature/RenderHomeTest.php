@@ -57,6 +57,16 @@ class RenderHomeTest extends TestCase
         $response->assertSee($level->name);
     }
 
+    /** @test */
+    public function categories_should_not_be_render_alone()
+    {
+        $category = create('App\Category');
+
+        $response = $this->get('/');
+
+        $response->assertDontSee($category->name);
+    }
+
     private function renderWithCategories($model, $visible = 1)
     {
         $model = create($model, ['visible' => $visible]);

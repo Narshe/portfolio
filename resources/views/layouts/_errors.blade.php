@@ -1,13 +1,7 @@
-@isset($error)
-    @if(count($errors) > 0)
+@if(session('errors'))
+     @foreach(session('errors')->all() as $error)
       <div class="alert alert-danger" role="alert">
-        <ul>
-          @foreach($errors->all() as $error)
-
-            <li>{{$error}}</li>
-
-          @endforeach
-        </ul>
+            <span>{{ $error }}</span>
       </div>
-    @endif
-@endisset
+    @endforeach
+@endif

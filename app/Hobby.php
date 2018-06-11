@@ -24,17 +24,10 @@ class Hobby extends Model
 
     public static function getVisibleHobbies()
     {
-
-        $hobbies = Category::getCategories([
+        return Category::getCategories(
             'visibleHobbies',
-            'visibleHobbies.media',
-             ],
+            ['visibleHobbies.media'],
              Hobby::class
         );
-
-        return $hobbies ? $hobbies->reject(function($category) {
-            return $category->visibleHobbies->isEmpty();
-        }) : [];
-
     }
 }

@@ -13,6 +13,10 @@ class Skill extends Model
 
     //  protected $events = ['creating' => SkillObserver::class, 'deleting' => SkillObserver::class];
 
+    public function cat()
+    {
+        return $this->morphToMany(Category::class, 'categorizable');
+    }
 
     public function realisations()
     {
@@ -41,18 +45,10 @@ class Skill extends Model
 
     public static function getVisibleSkills()
     {
-        $skills = Category::getCategories([
+        return Category::getCategories(
             'visibleSkills',
-            'visibleSkills.level',
-            'visibleSkills.media'],
-             Skill::class
+            ['visibleSkills.level','visibleSkills.media'],
+            Skill::class
         );
-
-        return $skills ? $skills->reject(function($category) {
-            return $category->visibleSkills->isEmpty();
-        }) : [];
-
     }
-
-
 }

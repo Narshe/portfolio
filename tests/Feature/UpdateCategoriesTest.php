@@ -46,18 +46,29 @@ class UpdateCategoriesTest extends TestCase
     }
 
     /** @test */
+    public function admin_can_delete_category()
+    {
+        $category = create('App\Category');
+        $skill = create('App\Skill', ['category_id' => $category->id]);
+
+        $this->delete(route('CategoriesDestroy', ['id' => $category->id]));
+
+        $this->assertDatabaseMissing('categories', ['name' => $category->name]);
+        $this->assertDatabaseMissing('skills', ['name' => $skill->name]);
+    }
+
+    /** @test */
     public function category_name_is_unique()
     {
         $category = create('App\Category');
         $category2 = create('App\Category');
 
-        $newCategory = make('App\Category', ['name' => $category2->name]);
-
         $this->expectException("Illuminate\Validation\ValidationException");
         $response = $this->patch(route('CategoriesUpdate', [
             'id'   => $category->id,
-            'name' => $newCategory->name,
-            'type' => $newCategory->type]
+            'name' => $category2->name,
+            'type' => $category2->type
+            ]
         ));
 
     }
@@ -68,18 +79,16 @@ class UpdateCategoriesTest extends TestCase
         $category = create('App\Category');
         $category2 = create('App\Category');
 
-        $newCategory = make('App\Category', ['type' => $category2->name]);
-
         $response = $this->patch(route('CategoriesUpdate', [
             'id'   => $category->id,
             'name' => $category->name,
-            'type' => $newCategory->type]
+            'type' => $category2->type]
         ));
 
         $this->assertDataBaseHas('categories', [
             'id' => $category->id,
             'name' => $category->name,
-            'type' => $newCategory->type,
+            'type' => $category2->type,
         ]);
 
         $response

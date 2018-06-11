@@ -50,12 +50,13 @@ class Category extends Model
 
     /**
      * [Get the categories with the data associated according to the model type]
+     * @param  String $has
      * @param  Array  $with
      * @param  String $model
-     * @return Collection|null
+     * @return Collection|[]
      */
-    public static function getCategories($with, $model)
+    public static function getCategories($has, $with, $model)
     {
-        return self::with($with)->where('type', $model)->get() ?: null;
+        return self::has($has)->with($with)->where('type', $model)->get();
     }
 }

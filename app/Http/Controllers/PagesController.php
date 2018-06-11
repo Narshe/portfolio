@@ -9,18 +9,22 @@ use App\Level;
 use App\School;
 use App\Hobby;
 use App\Skill;
+use App\Category;
+use App\Categorizable;
 
 class PagesController extends Controller
 {
 
     public function home()
     {
+
         $levels = Level::get();
         $schools = School::get();
 
         $skillsWithCategories = Skill::getVisibleSkills();
         $realisationsWithCategories = Realisation::getVisibleRealisations();
         $hobbiesWithCategories = Hobby::getVisibleHobbies();
+
 
         return view('home', compact(
             'skillsWithCategories',

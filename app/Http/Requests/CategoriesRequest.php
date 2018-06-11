@@ -14,7 +14,10 @@ class CategoriesRequest extends Request
     {
 
         return [
-          'name' => ['required','max:50', $this->uniqueRule('categories', $this->category ? $this->category->id : null)]
+            'name' => ['required','max:50', $this->uniqueRule('categories', $this->category ? $this->category->id : null)]
         ];
+
     }
+
+
 }
