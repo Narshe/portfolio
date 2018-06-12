@@ -13,8 +13,8 @@ class SkillsRequest extends Request
     public function rules()
     {
         return [
-          'name' => ['required','max:15',$this->uniqueRule('skills', $this->id)],
-          'category_id' =>  $this->existsWhere('categories', 'type', 'Skill'),
+          'name' => ['required','max:50',$this->uniqueRule('skills', $this->skill ? $this->skill->id : null)],
+          'category_id' =>  $this->existsWhere('categories', 'type', 'App\Skill'),
           'url'  => 'url',
           'media' => 'image'
         ];

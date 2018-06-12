@@ -75,12 +75,7 @@ class CategoriesController extends AdminController
      */
     public function destroy(Category $category)
     {
-        //Ajoute un event
-        $relation = substr(strtolower(str_plural($category->type)),4);
-
-        if($category->$relation)
-        $category->$relation->each->delete();
-
+    
         $category->delete();
 
         return redirect()->route('Categories')->with('success', 'Cette catégorie a bien été supprimé');

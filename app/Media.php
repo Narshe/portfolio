@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\MediaObserver;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class Media extends Model
 {
@@ -13,13 +14,26 @@ class Media extends Model
     protected $table = "medias";
 //    protected $events = ['deleting' => MediaObserver::class];
 
+    // public static function boot()
+    // {
+    //     parent::boot();
+    //
+    //     static::updating(function($media) {
+    //
+    //         dd($media);
+    //         $media->deleteFile($media);
+    //     });
+    // }
+
     public function uploadFile(UploadedFile $file, $dirname)
     {
-        $path = $file->store('public/'.$dirname);
-        $this->path = $path;
+        if (app()->environment() === 'testing') return $file->store("testing/{$dirname}");
+        return $file->store("public/{$dirname}");
+    }
 
-        return $this;
-
+    public function deleteFile()
+    {
+        Storage::delete($this->path);
     }
 
     public function mediable()

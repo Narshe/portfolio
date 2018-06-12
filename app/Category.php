@@ -10,6 +10,21 @@ class Category extends Model
 
     protected $fillable = ['name', 'type'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+
+        static::deleting(function($category) {
+
+
+            if($relation = $category->getRelation($category)) {
+
+                $category->$relation->each->delete();
+            }
+        });
+    }
+
 
     public function visibleSkills()
     {
@@ -46,6 +61,11 @@ class Category extends Model
         $icons = ['jeux videos' => 'gamepad', 'cinéma' => 'film', 'informatique' => 'terminal'];
 
         return isset($icons[strtolower($this->name)]) ? $icons[strtolower($this->name)] : '';
+    }
+
+    public function getRelation($category)
+    {
+        return strtolower(str_plural(explode('\\', $category->type)[1]));
     }
 
     /**

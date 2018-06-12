@@ -91,17 +91,17 @@ Route::group(['prefix' => 'adminBlablaNomATrouver', 'middleware' => 'auth.basic.
       Route::post('/store', 'SkillsController@store')->name('SkillsStore');
 
       //edit
-      Route::get('/{id}/edit', 'SkillsController@edit')
+      Route::get('/{skill}/edit', 'SkillsController@edit')
         ->where(['id' => '[0-9]+'])
         ->name('SkillsEdit');
 
 
-      Route::patch('/{id}/edit', 'SkillsController@update')
+      Route::patch('/{skill}/edit', 'SkillsController@update')
         ->where(['id' => '[0-9]+'])
         ->name('SkillsUpdate');
 
       //delete
-      Route::delete('/{id}/destroy', 'SkillsController@destroy')
+      Route::delete('/{skill}/destroy', 'SkillsController@destroy')
         ->where(['id' => '[0-9]+'])
         ->name('SkillsDestroy');
 

@@ -14,6 +14,10 @@ use App\Media;
 
 class SkillsController extends AdminController
 {
+    /**
+     * [index]
+     * @return View Admin.Skills.index
+     */
     public function index()
     {
         $skills = Skill::with('Category', 'Level')->get();
@@ -21,94 +25,73 @@ class SkillsController extends AdminController
         return view('Admin.Skills.index', compact('skills'));
     }
 
-    public function show($id)
-    {
-        $skill = Skill::findOrFail($id);
 
-        return view('Admin.Skills.show', compact('skill'));
-    }
+    // public function show(Skill $skill)
+    // {
+    //     return view('Admin.Skills.show', compact('skill'));
+    // }
 
+    /**
+     * [create]
+     * @return View Admin.Skill.create
+     */
     public function create()
     {
         $skill = new Skill();
-        $skillCategories = Category::where('type', 'Skill')->get()->pluck('name', 'id');
+        $skillCategories = Category::where('type', 'App\Skill')->get()->pluck('name', 'id');
         $levels = Level::orderBy('value', 'ASC')->get()->pluck('name', 'id');
 
         return view('Admin.Skills.create', compact('skill', 'skillCategories', 'levels'));
     }
 
+    /**
+     * [store ]
+     * @param  SkillsRequest $request
+     * @return Redirect to Skills
+     */
     public function store(SkillsRequest $request)
     {
-        $skill = new Skill();
+        $skill = Skill::create($request->all());
 
-        $params = $request->all();
-        $params['visible'] = (isset($params['visible'])) ? 1 : 0;
-
-
-        if ($skill = $skill->create($params)) {
-
-            if (isset($params['media'])) {
-                $this->handleMedia($params, $skill);
-            }
-
-            return redirect()->route('Skills')->with('success', 'La compétence a bien été ajouté');
-        } else {
-
-            $levels = Level::orderBy('value', 'ASC')->get()->pluck('name', 'id');
-            $skillCategories = Category::where('type', 'Skill')->get()->pluck('name', 'id');
-            return view('Admin.Skills.create', compact('skillCategories', 'levels'))->withErrors();
-        }
+        return redirect()->route('Skills')->with('success', 'La compétence a bien été ajouté');
     }
 
-    public function edit($id)
+    /**
+     * [edit ]
+     * @param  Skill  $skill
+     * @return View Admin.Skills.edit
+     */
+    public function edit(Skill $skill)
     {
-        $skill = Skill::findOrFail($id);
-
-        $skillCategories = Category::where('type', 'Skill')->get()->pluck('name', 'id');
+        $skillCategories = Category::where('type', 'App\Skill')->get()->pluck('name', 'id');
         $levels = Level::orderBy('value', 'ASC')->get()->pluck('name', 'id');
 
         return view('Admin.Skills.edit', compact('skill', 'skillCategories', 'levels'));
     }
 
-    public function update($id, SkillsRequest $request)
+    /**
+     * [update]
+     * @param  Skill         $skill
+     * @param  SkillsRequest $request
+     * @return Redirect to Skills
+     */
+    public function update(Skill $skill, SkillsRequest $request)
     {
-        $skill = Skill::findOrFail($id);
-        $params = $request->all();
+        $skill->updateSkill();
 
-        $params['visible'] = (isset($params['visible'])) ? 1 : 0;
-
-        if ($skill->update($params)) {
-
-            if (isset($params['media'])) {
-                $this->handleMedia($params, $skill);
-            }
-
-            return redirect()->route('Skills')->with('success', "Votre compétence a bien été modifié");
-        } else {
-
-            $skillCategories = Category::all()->pluck('name', 'id');
-            $levels = Level::orderBy('value', 'ASC')->get()->pluck('name', 'id');
-            return view('Admin.Skills.edit', compact('skillCategories', 'skill', 'levels'))->withErrors();
-        }
+        return redirect()->route('Skills')->with('success', "Votre compétence a bien été modifié");
     }
 
-    public function destroy($id)
+    /**
+     * [destroy]
+     * @param  Skill  $skill
+     * @return Redirect to Skills
+     */
+    public function destroy(Skill $skill)
     {
-        $skill = Skill::findOrFail($id);
-
         $skill->delete();
 
         return redirect()->route('Skills')->with('success', "Cette compétence a bien été supprimé");
     }
 
-    private function handleMedia($params, Skill $skill)
-    {
-        $media = new Media();
-        $media->uploadFile($params['media'], 'logos/skills');
-        $media->mediable_id = $skill->id;
-        $media->mediable_type = Skill::class;
-        $media->type = "logo";
-        $media->alt = $params['name'].'-'.$media->type;
-        $media->save();
-    }
 }

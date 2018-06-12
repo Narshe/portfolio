@@ -17,7 +17,7 @@ class CreateSkillTable extends Migration
 
         $table->increments('id');
         $table->string('name');
-        $table->string('url');
+        $table->string('url')->nullable();
         $table->integer('skill_category_id')->unsigned();
         $table->foreign('skill_category_id')->references('id')->on('skill_categories');
         $table->timestamps();

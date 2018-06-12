@@ -77,7 +77,7 @@ class UpdateCategoriesTest extends TestCase
     public function admin_may_only_update_category_type()
     {
         $category = create('App\Category');
-        $category2 = create('App\Category');
+        $category2 = create('App\Category', ['type' => 'App\Category']);
 
         $response = $this->patch(route('CategoriesUpdate', [
             'id'   => $category->id,

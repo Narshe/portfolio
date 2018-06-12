@@ -9,11 +9,22 @@ class RenderHomeTest extends TestCase
 {
     use RefreshDatabase;
 
+
     /** @test */
-    public function home_page_should_not_render_invisible_data()
+    public function home_page_should_not_render_invisible_skills()
     {
         $this->renderWithCategories(\App\Skill::class, 0);
-        $this->renderWithCategories(\App\Realisation::class, 0);
+    }
+
+    /** @test */
+    public function home_page_should_not_render_invisible_realisations()
+    {
+            $this->renderWithCategories(\App\Realisation::class, 0);
+    }
+
+    /** @test */
+    public function home_page_should_not_render_invisible_hobbies()
+    {
         $this->renderWithCategories(\App\Hobby::class, 0);
     }
 

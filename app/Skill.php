@@ -6,17 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Observers\SkillObserver;
 
 use App\Category;
+use App\Media;
+use App\Events\UpdateMedia;
 
 class Skill extends Model
 {
     protected $fillable = ['name', 'url', 'description', 'category_id', 'level_id', 'visible'];
 
-    //  protected $events = ['creating' => SkillObserver::class, 'deleting' => SkillObserver::class];
+    protected $casts = ['visible' => 'boolean'];
 
-    public function cat()
-    {
-        return $this->morphToMany(Category::class, 'categorizable');
-    }
 
     public function realisations()
     {
@@ -41,6 +39,20 @@ class Skill extends Model
     public function getDescriptionAttribute($value)
     {
         return $value ? explode(',', trim($value)) : false;
+    }
+
+    public function setVisibleAttribute($value)
+    {
+        $this->attributes['visible'] = !! $value;
+    }
+
+    public function updateSkill()
+    {
+        if (request()->has('media')) {
+            event(new UpdateMedia($this));
+        }
+
+        $this->update(request()->all());
     }
 
     public static function getVisibleSkills()
