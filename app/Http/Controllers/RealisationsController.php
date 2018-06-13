@@ -13,6 +13,10 @@ use App\Http\Requests\RealisationRequest;
 
 class RealisationsController extends AdminController
 {
+    /**
+     * [index]
+     * @return View Admin/Realisations/index.blade.php
+     */
     public function index()
     {
         $realisations = Realisation::all();
@@ -21,22 +25,25 @@ class RealisationsController extends AdminController
     }
 
     /**
-     * [show description]
-     * @param  int    $id [description]
-     * @return [type]     [description]
+     * [show]
+     * @param  Realisation $realisation
+     * @return View Admin/Realisations/show.blade.php
      */
-    public function show(int $id)
+    public function show(Realisation $realisation)
     {
-        $realisation = Realisation::findOrFail($id);
 
         return view('Admin.Realisations.show', compact('realisation'));
     }
 
+    /**
+     * [create]
+     * @return View Admin/Realisations/create.blade.php
+     */
     public function create()
     {
         $realisation = new Realisation();
         $skills = Skill::with('Category')->get();
-        $experiencesCategories = Category::where('type', 'Experience')->get();
+        $experiencesCategories = Category::where('type', 'App\Realisation')->get();
 
         $skillsGrouped = $skills->groupBy(function ($item, $key) {
             return $item->category->name;
@@ -45,112 +52,55 @@ class RealisationsController extends AdminController
         return view('Admin.Realisations.create', compact('realisation', 'skills', 'skillsGrouped', 'experiencesCategories'));
     }
 
+    /** Event triggered
+     * [store]
+     * @param  RealisationRequest $request
+     * @return Redirect to realisations/index
+     */
     public function store(RealisationRequest $request)
     {
-        $realisation = new Realisation();
-        $params = $request->all();
+        Realisation::create($request->all());
 
-        $params['visible'] = (isset($params['visible'])) ? 1 : 0;
-
-        if ($realisation = $realisation->create($params)) {
-
-            $realisation->skills()->sync($params['skills']);
-            if (isset($params['files'])) {
-
-                $dirname = 'pictures/realisations/'.$realisation->id;
-
-                foreach ($params['files'] as $key => $file) {
-
-                    $media = new Media();
-                    $media->uploadFile($file, $dirname);
-                    $media->type = "photo";
-                    $media->mediable_id = $realisation->id;
-                    $media->mediable_type = Realisation::class;
-                    $media->alt = $realisation->name . '-' . ($key+1) . '-' . $media->type;
-                    $media->save();
-                }
-            }
-
-            return redirect()->route('Realisations')->with('success', 'Cette réalisation a bien été ajouté');
-        } else {
-            $skills = Skill::with('SkillCategory')->get();
-            $skillsGrouped = $skills->groupBy(function ($item, $key) {
-                return $item->SkillCategory->name;
-            });
-
-            return view('Admin.Realisations.create', compact('skillsGrouped', 'realisation'))->withErrors();
-        }
+        return redirect()->route('Realisations')->with('success', 'Cette réalisation a bien été ajouté');
     }
 
     /**
-     * [edit description]
-     * @param  int    $id [description]
-     * @return [type]     [description]
+     * [edit]
+     * @param  Realisation $realisation
+     * @return View Admin/Realisations/edit.blade.php
      */
-    public function edit(int $id)
+    public function edit(Realisation $realisation)
     {
-        $realisation = Realisation::findOrFail($id);
-        $experiencesCategories = Category::where('type', 'Experience')->get();
-        $skills = Skill::with('Category')->get();
+        $experiencesCategories = Category::where('type', 'App\Realisation')->get();
 
-        $skillsGrouped = $skills->groupBy(function ($item, $key) {
+        $skillsGrouped = Skill::with('Category')->get()->groupBy(function($item, $key) {
             return $item->category->name;
         });
 
-        //  dd($skillsGrouped);
 
         return view('Admin.Realisations.edit', compact('realisation', 'skillsGrouped', 'experiencesCategories'));
     }
 
     /**
-     * [update description]
-     * @param  int                $id      [description]
-     * @param  RealisationRequest $request [description]
-     * @return [type]                      [description]
+     * [update]
+     * @param  Realisation        $realisation
+     * @param  RealisationRequest $request
+     * @return Redirect to realisations/index
      */
-    public function update(int $id, RealisationRequest $request)
+    public function update(Realisation $realisation, RealisationRequest $request)
     {
-        $realisation = Realisation::findOrFail($id);
-        $params = $request->all();
+        $realisation->updateRealisation();
 
-        $params['visible'] = (isset($params['visible'])) ? 1 : 0;
-
-    //    dd($params);
-        if ($realisation->update($params)) {
-        //    dd($params);
-        //    Mettre un event
-            $realisation->skills()->sync($params['skills']);
-            if (isset($params['files'])) {
-
-                $dirname = 'pictures/realisations/'.$realisation->id;
-
-                foreach ($params['files'] as $key => $file) {
-
-                    $media = new Media();
-                    $media->uploadFile($file, $dirname);
-                    $media->type = "photo";
-                    $media->mediable_id = $realisation->id;
-                    $media->mediable_type = Realisation::class;
-                    $media->alt = $realisation->name . '-' . ($key+1) . '-' . $media->type;
-                    $media->save();
-                }
-            }
-
-            return redirect()->route('Realisations')->with('success', 'Cette réalisation a bien été modifié');
-
-        } else {
-            $skills = Skill::with('SkillCategory')->get();
-            $skillsGrouped = $skills->groupBy(function ($item, $key) {
-                return $item->SkillCategory->name;
-            });
-
-            return view('Admin.Realisations.edit', compact('skillsGrouped'))->withErrors();
-        }
+        return redirect()->route('Realisations')->with('success', 'Cette réalisation a bien été modifié');
     }
 
-    public function destroy($id)
+    /** Event triggered
+     * [destroy]
+     * @param  Realisation $realisation
+     * @return Redirect to realisations/index
+     */
+    public function destroy(Realisation $realisation)
     {
-        $realisation = Realisation::findOrFail($id);
         $realisation->delete();
 
         return redirect()->route('Realisations')->with('success', 'Cette réalisation a bien été supprimé');

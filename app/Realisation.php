@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Category;
 
 class Realisation extends Model
 {
@@ -28,6 +27,39 @@ class Realisation extends Model
     public function skills()
     {
         return $this->belongsToMany('App\Skill');
+    }
+
+    public function updateRealisation()
+    {
+        if (request()->has('files')) {
+
+            $this->storeFiles($this);
+        }
+
+        $this->skills()->sync(request('skills'));
+
+        $this->update(request()->all());
+    }
+
+    public function storeFiles()
+    {
+        $dirname = 'pictures/realisations/'.$this->id;
+
+        foreach (request('files') as $file) {
+
+            $media = new Media();
+            $media->create([
+                'mediable_type' => Realisation::class,
+                'mediable_id'   => $this->id,
+                'type' => 'photo',
+                'alt'  =>  "{$this->name}-realisation",
+                'path' =>  $media->uploadFile($file, $dirname)
+            ]);
+        }
+    }
+    public function setVisibleAttribute($value)
+    {
+        $this->attributes['visible'] = !! $value;
     }
 
     public function getDateBeginAttribute($value)
@@ -58,7 +90,7 @@ class Realisation extends Model
          return Category::getCategories(
              'visibleRealisations',
              ['visibleRealisations.medias','visibleRealisations.skills'],
-              'App\Experience'
+              Realisation::class
          );
 
 

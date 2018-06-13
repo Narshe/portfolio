@@ -28,6 +28,7 @@ class Media extends Model
     public function uploadFile(UploadedFile $file, $dirname)
     {
         if (app()->environment() === 'testing') return $file->store("testing/{$dirname}");
+        
         return $file->store("public/{$dirname}");
     }
 

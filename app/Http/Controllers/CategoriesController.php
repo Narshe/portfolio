@@ -12,19 +12,18 @@ class CategoriesController extends AdminController
 {
     /**
      * [index]
-     * @return View admin.Categories.index
+     * @return View Admin/Categories/index.blade.php
      */
     public function index()
     {
         $categories = Category::all();
-
 
         return view('Admin.Categories.index', compact('categories'));
     }
 
     /**
      * [create]
-     * @return View admin.Categories.create
+     * @return View Admin/Categories/create.blade.php
      */
     public function create()
     {
@@ -36,7 +35,7 @@ class CategoriesController extends AdminController
     /**
      * [store]
      * @param  CategoriesRequest $request
-     * @return Redirect to Categories
+     * @return Redirect to categories/index
      */
     public function store(CategoriesRequest $request)
     {
@@ -48,7 +47,7 @@ class CategoriesController extends AdminController
     /**
      * [edit]
      * @param  Category $category [description]
-     * @return View Admin.Categories.edit
+     * @return View Admin/Categories/edit.blade.php
      */
     public function edit(Category $category)
     {
@@ -59,7 +58,7 @@ class CategoriesController extends AdminController
      * [update]
      * @param  Category          $category
      * @param  CategoriesRequest $request
-     * @return Redirect to Categories
+     * @return Redirect to categories/index
      */
     public function update(Category $category, CategoriesRequest $request)
     {
@@ -71,11 +70,11 @@ class CategoriesController extends AdminController
     /**
      * [destroy]
      * @param  Category $category
-     * @return Redirect to Categories
+     * @return Redirect to categories/index
      */
     public function destroy(Category $category)
     {
-    
+
         $category->delete();
 
         return redirect()->route('Categories')->with('success', 'Cette catégorie a bien été supprimé');

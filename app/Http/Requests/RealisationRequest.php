@@ -14,18 +14,21 @@ class RealisationRequest extends Request
     {
 
         $rules = [
-            'name' => ['required', 'alpha_num', $this->uniqueRule('realisations', $this->id)],
-            'company' => 'required|alpha_num|between:2,50',
-            'date_end'  =>  'required|date|before:'.$this->getCurrentDate().'',
+            'name' => [
+                 'required',
+                 $this->uniqueRule('realisations', $this->realisation ? $this->realisation->id : null)
+            ],
+            'company' => 'required|between:2,50',
+            'date_end'  =>  'required|date',
             'date_begin' => 'required|date|before:date_end',
             'position'  => 'required|between:2,50',
             'url' =>  'nullable|url',
             'visible' =>  'nullable',
             'skills'  =>  'exists:skills,id',
-            'category_id' => $this->existsWhere('categories', 'type', 'Experience'),
+            'category_id' => $this->existsWhere('categories', 'type', 'App\Realisation'),
         ];
 
-          if(isset($this->file('files')))
+          if($this->has('files'))
           {
             foreach($this->file('files') as $key => $file) {
               $rules['files.'.$key] =  'nullable|image';

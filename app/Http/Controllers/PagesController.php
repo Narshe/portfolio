@@ -25,7 +25,6 @@ class PagesController extends Controller
         $realisationsWithCategories = Realisation::getVisibleRealisations();
         $hobbiesWithCategories = Hobby::getVisibleHobbies();
 
-
         return view('home', compact(
             'skillsWithCategories',
             'realisationsWithCategories',

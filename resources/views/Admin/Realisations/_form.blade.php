@@ -10,11 +10,11 @@
 </div>
 <div class="form-group">
     <label for="date_begin">Date de début</label>
-    <input class="form-control date" type="text" name="date_begin" id="date_begin" value="{{$realisation->date_begin}}" />
+    <input class="form-control date" type="text" name="date_begin" id="date_begin" value="{{$realisation->date_begin->format('Y-m-d')}}" />
 </div>
 <div class="form-group">
     <label for="date_end">Date de fin </label>
-    <input class="form-control date" type="text" name="date_end" id="date_end" value="{{$realisation->date_end}}" />
+    <input class="form-control date" type="text" name="date_end" id="date_end" value="{{$realisation->date_end->format('Y-m-d')}}" />
 </div>
 <div class="form-group">
     <label for="position">Position dans l'entreprise </label>

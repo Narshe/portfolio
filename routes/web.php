@@ -115,26 +115,26 @@ Route::group(['prefix' => 'adminBlablaNomATrouver', 'middleware' => 'auth.basic.
       Route::get('/', 'RealisationsController@index')->name('Realisations');
 
       //show
-      Route::get('/{id}', 'RealisationsController@show')
-        ->where(['id' => '[0-9]+'])
-        ->name('Realisations_show');
+    //   Route::get('/{realisation}', 'RealisationsController@show')
+    //     ->where(['id' => '[0-9]+'])
+    //     ->name('Realisations_show');
 
       //create
       Route::get('/create', 'RealisationsController@create')->name('RealisationsCreate');
       Route::post('/store', 'RealisationsController@store')->name('RealisationsStore');
 
       //edit
-      Route::get('/{id}/edit', 'RealisationsController@edit')
+      Route::get('/{realisation}/edit', 'RealisationsController@edit')
         ->where(['id' => '[0-9]+'])
         ->name('RealisationsEdit');
 
 
-      Route::patch('/{id}/edit', 'RealisationsController@update')
+      Route::patch('/{realisation}/edit', 'RealisationsController@update')
         ->where(['id' => '[0-9]+'])
         ->name('RealisationsUpdate');
 
       //delete
-      Route::delete('/{id}/destroy', 'RealisationsController@destroy')
+      Route::delete('/{realisation}/destroy', 'RealisationsController@destroy')
         ->where(['id' => '[0-9]+'])
         ->name('RealisationsDestroy');
 

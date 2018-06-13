@@ -5,8 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Observers\SkillObserver;
 
-use App\Category;
-use App\Media;
 use App\Events\UpdateMedia;
 
 class Skill extends Model

@@ -16,7 +16,7 @@ class SkillsController extends AdminController
 {
     /**
      * [index]
-     * @return View Admin.Skills.index
+     * @return View Admin/Skills/index.blade.php
      */
     public function index()
     {
@@ -33,7 +33,7 @@ class SkillsController extends AdminController
 
     /**
      * [create]
-     * @return View Admin.Skill.create
+     * @return View Admin/Skills/create.blade.php
      */
     public function create()
     {
@@ -47,7 +47,7 @@ class SkillsController extends AdminController
     /**
      * [store ]
      * @param  SkillsRequest $request
-     * @return Redirect to Skills
+     * @return Redirect to skills/index
      */
     public function store(SkillsRequest $request)
     {
@@ -59,7 +59,7 @@ class SkillsController extends AdminController
     /**
      * [edit ]
      * @param  Skill  $skill
-     * @return View Admin.Skills.edit
+     * @return View Admin/Skills/edit.blade.php
      */
     public function edit(Skill $skill)
     {
@@ -73,7 +73,7 @@ class SkillsController extends AdminController
      * [update]
      * @param  Skill         $skill
      * @param  SkillsRequest $request
-     * @return Redirect to Skills
+     * @return Redirect to skills/index
      */
     public function update(Skill $skill, SkillsRequest $request)
     {
@@ -85,7 +85,7 @@ class SkillsController extends AdminController
     /**
      * [destroy]
      * @param  Skill  $skill
-     * @return Redirect to Skills
+     * @return Redirect to skills/index
      */
     public function destroy(Skill $skill)
     {
