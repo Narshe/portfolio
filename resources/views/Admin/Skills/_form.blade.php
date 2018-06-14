@@ -38,12 +38,8 @@
 
 <div class="form-group">
   <label for="description"> Description </label>
-  <textarea id="description" name="description" cols="30" rows="10" class="form-control">
-      @if ($skill->description)
-          @foreach ($skill->description as $description)
-              {{ $description }}
-          @endforeach
-      @endif</textarea>
+  <textarea id="description" name="description" cols="30" rows="10" class="form-control">@foreach ($skill->getDescriptions() as $description){{ $description }},@endforeach
+  </textarea>
 </div>
 
 <div class="form-group">
@@ -51,10 +47,7 @@
   <input class="form-control" type="file" name="media" id="media">
 </div>
 
-<div class="form-group">
-    <label class="custom-control custom-checkbox">
-    <input {{$skill->visible ? 'checked' :  '' }} type="checkbox" name="visible" value="visible" class="custom-control-input">
-    <span class="custom-control-indicator"></span>
-    <span class="custom-control-description">Mettre en ligne</span>
-  </label>
+<div class="custom-control custom-checkbox">
+    <input {{$skill->visible ? 'checked' :  '' }} id="checkbox" type="checkbox" name="visible" value="visible" class="custom-control-input">
+    <label class="custom-control-label" for="checkbox">Mettre en ligne</label>
 </div>

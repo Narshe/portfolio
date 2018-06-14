@@ -9,6 +9,10 @@ use App\Http\Requests\SchoolsRequest;
 
 class SchoolsController extends AdminController
 {
+    /**
+     * [index]
+     * @return View Admin/Schools/index.blade.php
+     */
     public function index()
     {
 
@@ -16,6 +20,10 @@ class SchoolsController extends AdminController
         return view('Admin.Schools.index', compact('schools'));
     }
 
+    /**
+     * [create]
+     * @return View Admin/Schools/create.blade.php
+     */
     public function create()
     {
         $school = new School();
@@ -23,45 +31,50 @@ class SchoolsController extends AdminController
         return view('Admin.Schools.create', compact('school'));
     }
 
+    /**
+     * [store]
+     * @param  SchoolsRequest $request
+     * @return Redirect to schools/index
+     */
     public function store(SchoolsRequest $request)
     {
-
         $school = new School();
-        $params = $request->all();
+        $school->create($request->all());
 
-        if ($school->create($params)) {
-
-            return redirect()->route('Schools')->with('success', "La formation a bien été ajouté");
-        }
-
-        return view('Admin.Schools.create', compact('school'))->withErrors();
+        return redirect()->route('Schools')->with('success', "Cette formation a bien été ajouté");
     }
 
-    public function edit($id)
+    /**
+     * [edit]
+     * @param  School $school
+     * @return View Admin/schools/edit.blade.php
+     */
+    public function edit(School $school)
     {
-        $school = School::findOrFail($id);
-
         return view('Admin.Schools.edit', compact('school'));
     }
 
-    public function update($id, SchoolsRequest $request)
+    /**
+     * [update]
+     * @param  School         $school
+     * @param  SchoolsRequest $request
+     * @return Redirect to schools/index
+     */
+    public function update(School $school, SchoolsRequest $request)
     {
-        $school = School::findOrFail($id);
-        $params = $request->all();
-
-        if ($school->update($params)) {
-            return redirect()->route('Schools')->with('success', 'Cette formation a bien été modifié');
-        }
-
-        return view('Admin.Levels.edit', compact('level'))->withErrors();
-
-
+        $school->update($request->all());
+        return redirect()->route('Schools')->with('success', 'Cette formation a bien été modifié');
     }
 
-    public function destroy($id)
+
+    /**
+     * [destroy]
+     * @param  School $school
+     * @return Redirect to schools/index
+     */
+    public function destroy(School $school)
     {
-        $level = School::findOrFail($id);
-        $level->delete();
+        $school->delete();
         return redirect()->route('Schools')->with('success', 'Cette formation a bien été supprimé');
     }
 }

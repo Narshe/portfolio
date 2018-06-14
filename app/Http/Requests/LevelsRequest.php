@@ -12,10 +12,9 @@ class LevelsRequest extends Request
      */
     public function rules()
     {
-
         return [
-            'name' => ['required', $this->uniqueRule('levels', $this->id)],
-            'value' => ['required', $this->uniqueRule('levels', $this->id), 'integer', 'between:0,5']
+            'name' => ['required', $this->uniqueRule('levels', $this->level ? $this->level->id : null)],
+            'value' => ['required', $this->uniqueRule('levels', $this->level ? $this->level->id : null), 'integer', 'between:0,5']
         ];
     }
 

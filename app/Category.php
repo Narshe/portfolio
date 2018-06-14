@@ -75,7 +75,7 @@ class Category extends Model
      * @param  String $model
      * @return Collection|[]
      */
-    public static function getCategories($has, $with, $model)
+    public static function getCategories($has, $with = [], $model)
     {
         return self::has($has)->with($with)->where('type', $model)->get();
     }

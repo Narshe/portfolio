@@ -11,9 +11,6 @@ class Skill extends Model
 {
     protected $fillable = ['name', 'url', 'description', 'category_id', 'level_id', 'visible'];
 
-    protected $casts = ['visible' => 'boolean'];
-
-
     public function realisations()
     {
         return $this->belongsToMany('App\Realisation', 'realisation_skill');
@@ -34,9 +31,23 @@ class Skill extends Model
         return $this->belongsTo('App\Level');
     }
 
-    public function getDescriptionAttribute($value)
+    public function getDescriptions()
     {
-        return $value ? explode(',', trim($value)) : false;
+        return $this->description ? explode(',', trim($this->description)) : [];
+    }
+
+
+    public function uploadFile()
+    {
+        $media = new Media();
+
+        $media->create([
+            'mediable_type' => Skill::class,
+            'mediable_id'   => $this->id,
+            'type' => 'logo',
+            'alt'  => request('name'). '-' . 'logo',
+            'path' => $media->storeFile(request('media'), 'logos/skills')
+        ]);
     }
 
     public function setVisibleAttribute($value)

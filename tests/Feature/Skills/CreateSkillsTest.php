@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Skills;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,7 +29,7 @@ class CreateSkillsTest extends TestCase
     }
 
     /** @test */
-    public function admin_can_store_a_new_skill_without_image()
+    public function admin_can_create_a_new_skill()
     {
 
         $skill = make('App\Skill');
@@ -46,30 +46,6 @@ class CreateSkillsTest extends TestCase
         $this->assertDatabaseHas('skills', ['name' => $skill->name]);
     }
 
-    /** @test */
-    public function admin_can_store_a_new_skill_with_images()
-    {
-        $skill = make('App\Skill');
-
-        $response = $this->post(route('SkillsStore'), [
-            'name' => $skill->name,
-            'category_id' => $skill->category->id,
-            'level_id'  => $skill->level->id,
-            'description' => $skill->description[0],
-            'visible'   => "visible",
-            'media' => $file = UploadedFile::fake()->image('avatar.jpg')
-
-        ]);
-
-        $this->assertDatabaseHas('skills', ['name' => $skill->name]);
-
-        $skill = Skill::first();
-
-        $this->assertEquals("testing/logos/skills/{$file->hashName()}", $skill->media->path);
-        Storage::disk('testing')->assertExists("logos/skills/{$file->hashName()}");
-        ;
-        Storage::deleteDirectory('testing');
-    }
 
     /** @test */
     public function a_skill_name_is_required()

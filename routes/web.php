@@ -27,27 +27,22 @@ Route::group(['prefix' => 'adminBlablaNomATrouver', 'middleware' => 'auth.basic.
       //index
       Route::get('/', 'LevelsController@index')->name('Levels');
 
-      //show
-      Route::get('/{id}', 'LevelsController@show')
-        ->where(['id' => '[0-9]+'])
-        ->name('Skill_show');
-
       //create
       Route::get('/create', 'LevelsController@create')->name('LevelsCreate');
       Route::post('/store', 'LevelsController@store')->name('LevelsStore');
 
       //edit
-      Route::get('/{id}/edit', 'LevelsController@edit')
+      Route::get('/{level}/edit', 'LevelsController@edit')
         ->where(['id' => '[0-9]+'])
         ->name('LevelsEdit');
 
 
-      Route::patch('/{id}/edit', 'LevelsController@update')
+      Route::patch('/{level}/edit', 'LevelsController@update')
         ->where(['id' => '[0-9]+'])
         ->name('LevelsUpdate');
 
       //delete
-      Route::delete('/{id}/destroy', 'LevelsController@destroy')
+      Route::delete('/{level}/destroy', 'LevelsController@destroy')
         ->where(['id' => '[0-9]+'])
         ->name('LevelsDestroy');
 
@@ -150,17 +145,17 @@ Route::group(['prefix' => 'adminBlablaNomATrouver', 'middleware' => 'auth.basic.
       Route::post('/store', 'SchoolsController@store')->name('SchoolsStore');
 
       //edit
-      Route::get('/{id}/edit', 'SchoolsController@edit')
+      Route::get('/{school}/edit', 'SchoolsController@edit')
         ->where(['id' => '[0-9]+'])
         ->name('SchoolsEdit');
 
 
-      Route::patch('/{id}/edit', 'SchoolsController@update')
+      Route::patch('/{school}/edit', 'SchoolsController@update')
         ->where(['id' => '[0-9]+'])
         ->name('SchoolsUpdate');
 
       //delete
-      Route::delete('/{id}/destroy', 'SchoolsController@destroy')
+      Route::delete('/{school}/destroy', 'SchoolsController@destroy')
         ->where(['id' => '[0-9]+'])
         ->name('SchoolsDestroy');
 
@@ -176,17 +171,17 @@ Route::group(['prefix' => 'adminBlablaNomATrouver', 'middleware' => 'auth.basic.
       Route::post('/store', 'HobbiesController@store')->name('HobbiesStore');
 
       //edit
-      Route::get('/{id}/edit', 'HobbiesController@edit')
+      Route::get('/{hobby}/edit', 'HobbiesController@edit')
         ->where(['id' => '[0-9]+'])
         ->name('HobbiesEdit');
 
 
-      Route::patch('/{id}/edit', 'HobbiesController@update')
+      Route::patch('/{hobby}/edit', 'HobbiesController@update')
         ->where(['id' => '[0-9]+'])
         ->name('HobbiesUpdate');
 
       //delete
-      Route::delete('/{id}/destroy', 'HobbiesController@destroy')
+      Route::delete('/{hobby}/destroy', 'HobbiesController@destroy')
         ->where(['id' => '[0-9]+'])
         ->name('HobbiesDestroy');
 
@@ -202,23 +197,23 @@ Route::group(['prefix' => 'adminBlablaNomATrouver', 'middleware' => 'auth.basic.
       Route::post('/store', 'MediasController@store')->name('MediasStore');
 
       //edit
-      Route::get('/{id}/edit', 'MediasController@edit')
+      Route::get('/{media}/edit', 'MediasController@edit')
         ->where(['id' => '[0-9]+'])
         ->name('MediasEdit');
 
       //update
-      Route::patch('/{id}/edit', 'MediasController@update')
+      Route::patch('/{media}/edit', 'MediasController@update')
         ->where(['id' => '[0-9]+'])
         ->name('MediasUpdate');
 
       //delete
-      Route::delete('/{id}/destroy', 'MediasController@destroy')
+      Route::delete('/{media}/destroy', 'MediasController@destroy')
         ->where(['id' => '[0-9]+'])
         ->name('MediasDestroy');
 
-      Route::get('/{id}/updateCover', 'MediasController@updateCover')
+      Route::patch('/{media}/updateCover', 'UpdateCoversController@update')
         ->where(['id' => '[0-9]+'])
-        ->name('MediasUpdateCover');
+        ->name('CoversUpdate');
 
     });
 

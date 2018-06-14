@@ -15,10 +15,10 @@ class HobbiesRequest extends Request
     public function rules()
     {
         return [
-            'name' => ['required', 'string', $this->uniqueRule('hobbies', $this->id)],
-            'url' => 'url',
+            'name' => ['required', $this->uniqueRule('hobbies', $this->hobby ? $this->hobby->id : null)],
+            'category_id' => $this->existsWhere('categories', 'type', 'App\Hobby'),
+            'url' => 'nullable|url',
             'visible' => 'nullable',
-            'category_id' => $this->existsWhere('hobbies', 'type', 'Hobby'),
         ];
     }
 }

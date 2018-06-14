@@ -37,7 +37,11 @@
 
                                         @if($mediaType == 'Realisation' && $media->type !== 'cover')
                                             <div class="col-12">
-                                            <a class="col-12 btn btn-success" href="{{ route('MediasUpdateCover', $media->id)}}">Update Cover</a>
+                                                <form action="{{ route('CoversUpdate', $media->id)}}" method="POST">
+                                                    {{ csrf_field()}}
+                                                    {{ method_field('PATCH')}}
+                                                    <button type="submit" class="col-12 btn btn-success">Update cover</button>
+                                                </form>
                                             </div>
                                         @endif
                                         <div class="col-12">

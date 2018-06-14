@@ -36,19 +36,25 @@
                                                 <span class="levels level-{{$skill->level->value}}"></span>
                                             @endif
                                         </div>
+                                        @if ($skill->media)
+                                            <div class="card-body skill-img" style="background-image: url('{{ Storage::url($skill->media->path) }}')">
 
-                                        {{-- <div class="card-body skill-img" style="background-image: url('{{ Storage::url($skill->media->path) }}')">
+                                            </div>
+                                        @else
+                                            <div class="experience-img bg-light" style="background-image: url('{{ Storage::url('defaults/No_image_available.png') }}')">
 
-                                        </div> --}}
+                                            </div>
+
+                                        @endif
                                     </div>
                                     <div id="blur" class="card-description blur">
                                         <div class="blur-content">
                                             @if ($skill->description)
-                                                @foreach ($skill->description as $description)
+                                                @foreach ($skill->getDescriptions() as $description)
                                                   <span class="badge badge-dark">{{ $description }}</span>
                                                 @endforeach
                                             @else
-                                                <strong>{{ 'Pas de description'}}</strong>
+                                                <p><strong>{{ 'Pas de description'}}</strong></p>
                                             @endif
                                         </div>
                                         <a target="_blank" class="btn btn-dark card-description-link" href="{{ $skill->url }}">Lien</a>

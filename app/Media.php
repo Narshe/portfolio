@@ -12,23 +12,11 @@ class Media extends Model
     protected $fillable = ['path', 'type', 'alt', 'mediable_id', 'mediable_type'];
 
     protected $table = "medias";
-//    protected $events = ['deleting' => MediaObserver::class];
 
-    // public static function boot()
-    // {
-    //     parent::boot();
-    //
-    //     static::updating(function($media) {
-    //
-    //         dd($media);
-    //         $media->deleteFile($media);
-    //     });
-    // }
-
-    public function uploadFile(UploadedFile $file, $dirname)
+    public function storeFile(UploadedFile $file, $dirname)
     {
         if (app()->environment() === 'testing') return $file->store("testing/{$dirname}");
-        
+
         return $file->store("public/{$dirname}");
     }
 
@@ -42,16 +30,36 @@ class Media extends Model
         return $this->morphTo();
     }
 
-    /*
-    public function skills()
+
+    public function updateCover()
     {
-        return $this->hasMany('App\Skill');
+
+        if (!$this->mediable instanceof Realisation || $this->isCoverType())
+        return;
+
+        $media =  $this->where(['type' => 'cover', 'mediable_id' => $this->mediable_id])->first();
+
+        if($media)
+        $this->uncover($media);
+
+        $this->cover();
     }
 
-    public function realisation()
+
+    public function isCoverType()
     {
-        return $this->belongsToMany('App\Realisation');
+        return $this->type === 'cover';
     }
-    */
+
+    public function cover()
+    {
+        $this->update(['type' => 'cover']);
+    }
+
+    public function uncover($media)
+    {
+        $media->update(['type' => 'photo']);
+    }
+
 
 }

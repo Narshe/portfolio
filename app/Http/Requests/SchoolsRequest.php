@@ -13,9 +13,9 @@ class SchoolsRequest extends Request
     public function rules()
     {
         return [
-          'name' => ['required','max:255',$this->uniqueRule('schools', $this->id)],
+          'name' => ['required','max:255',$this->uniqueRule('schools', $this->school ? $this->school->id : null)],
           'city'  => 'max:50',
-          'url' => 'url'
+          'url' => 'nullable|url'
         ];
     }
 }

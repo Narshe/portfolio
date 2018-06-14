@@ -15,18 +15,23 @@ class Hobby extends Model
     {
         return $this->belongsTo('App\Category');
     }
+    //
+    // public function media()
+    // {
+    //     return $this->morphOne('App\Media', 'mediable');
+    // }
 
-    public function media()
+    public function setVisibleAttribute($value)
     {
-        return $this->morphOne('App\Media', 'mediable');
+        $this->attributes['visible'] = !! $value;
     }
 
     public static function getVisibleHobbies()
     {
         return Category::getCategories(
             'visibleHobbies',
-            ['visibleHobbies.media'],
-             Hobby::class
+            [],
+            Hobby::class
         );
     }
 }

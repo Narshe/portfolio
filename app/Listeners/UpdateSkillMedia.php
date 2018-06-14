@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UpdateSkillMedia
 {
-    
+
     /**
      * Handle the event.
      *
@@ -17,9 +17,11 @@ class UpdateSkillMedia
      */
     public function handle(UpdateMedia $event)
     {
+        if (!$event->model->media) return $event->model->uploadFile();
+
         $event->model->media->deleteFile();
         $event->model->media->update([
-            'path' => $event->model->media->uploadFile(request('media'), 'logos/skills')
+            'path' => $event->model->media->storeFile(request('media'), 'logos/skills')
         ]);
 
     }

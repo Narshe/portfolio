@@ -11,16 +11,8 @@ class SkillObserver {
     public function created(Skill $skill)
     {
       if (request()->has('media')) {
-
-          $media = new Media();
-
-          $media->create([
-              'mediable_type' => Skill::class,
-              'mediable_id'   => $skill->id,
-              'type' => 'logo',
-              'alt'  => request('name'). '-' . 'logo',
-              'path' => $media->uploadFile(request('media'), 'logos/skills')
-          ]);
+          
+        $skill->uploadFile();
       }
     }
 

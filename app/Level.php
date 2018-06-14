@@ -10,6 +10,7 @@ class Level extends Model
 
     protected $fillable = ['name', 'value'];
 
+    
     public function skills()
     {
         return $this->hasMany('App\Skill');

@@ -9,86 +9,73 @@ use App\Http\Requests\HobbiesRequest;
 
 class HobbiesController extends AdminController
 {
+    /**
+     * [index]
+     * @return View Admin/Hobbies/index.blade.php
+     */
     public function index()
     {
         $hobbies = Hobby::all();
 
-
         return view('Admin.Hobbies.index', compact('hobbies'));
     }
 
+    /**
+     * [create]
+     * @return View Admin/Hobbies/create.blade.php
+     */
     public function create()
     {
         $hobby = new Hobby();
-        $hobbyCategories = Category::where('type', 'Hobby')->get();
+        $hobbyCategories = Category::where('type', 'App\Hobby')->get();
 
         return view('Admin.Hobbies.create', compact('hobby', 'hobbyCategories'));
     }
 
+    /**
+     * [store ]
+     * @param  HobbiesRequest $request
+     * @return Redirect to hobbies/index
+     */
     public function store(HobbiesRequest $request)
     {
+        $hobby = Hobby::create($request->all());
 
-        $hobby = new Hobby();
-        $params = $request->all();
-
-        $params['visible'] = (isset($params['visible'])) ? 1 : 0;
-
-        if ($hobby = $hobby->create($params)) {
-
-            if (isset($params['media'])) {
-
-                $media = new Media();
-                $media->uploadFile($params['media'], 'logos/hobbies');
-                $media->mediable_id = $hobby->id;
-                $media->mediable_type = Hobby::class;
-                $media->type = "logo";
-                $media->alt = $params['name'].'-'.$media->type;
-                $media->save();
-            }
-
-            return redirect()->route('Hobbies')->with('success', 'Ce hobby a bien été ajouté');
-        } else {
-            $hobbyCategories = Category::where('type', 'Hobby')->get();
-            return view('Admin.Hobbies.create', compact('hobby','hobbyCategories'))->withErrors();
-        }
+        return redirect()->route('Hobbies')->with('success', 'Ce hobby a bien été ajouté');
     }
 
-    public function edit($id)
+    /**
+     * [edit]
+     * @param  Hobby  $hobby
+     * @return View Admin/Hobbies/edit.blade.php
+     */
+    public function edit(Hobby $hobby)
     {
-        $hobby = Hobby::findOrFail($id);
-        $hobbyCategories = Category::where('type', 'Hobby')->get();
+        $hobbyCategories = Category::where('type', 'App\Hobby')->get();
+
         return view('Admin.Hobbies.edit', compact('hobby', 'hobbyCategories'));
     }
 
-    public function update($id, HobbiesRequest $request)
+    /**
+     * [update]
+     * @param  Hobby          $hobby
+     * @param  HobbiesRequest $request
+     * @return Redirect to hobbies/index
+     */
+    public function update(Hobby $hobby, HobbiesRequest $request)
     {
-        $hobby = Hobby::findOrFail($id);
-        $params = $request->all();
-        $params['visible'] = (isset($params['visible'])) ? 1 : 0;
+        $hobby->update($request->all());
 
-        if ($hobby->update($params)) {
-
-            if (isset($params['media'])) {
-
-                $media = new Media();
-                $media->uploadFile($params['media'], 'logos/hobbies');
-                $media->mediable_id = $hobby->id;
-                $media->mediable_type = Hobby::class;
-                $media->type = "logo";
-                $media->alt = $params['name'].'-'.$media->type;
-                $media->save();
-            }
-
-            return redirect()->route('Hobbies')->with('success', 'Ce hobby a bien été modifié');
-        } else {
-            $hobbyCategories = Category::where('type', 'Hobby')->get();
-            return view('Admin.Hobbies.edit', compact('hobby','hobbyCategories'))->withErrors();
-        }
+        return redirect()->route('Hobbies')->with('success', 'Ce hobby a bien été modifié');
     }
 
-    public function destroy($id)
+    /**
+     * [destroy]
+     * @param  Hobby  $hobby
+     * @return Redirect to hobbies/index
+     */
+    public function destroy(Hobby $hobby)
     {
-        $hobby = Hobby::findOrFail($id);
         $hobby->delete();
         return redirect()->route('Hobbies')->with('success', 'Ce hobby a bien été supprimé');
     }

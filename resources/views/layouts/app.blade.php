@@ -9,7 +9,7 @@
 
     <title>Hadrien Giraudeau - Cv en ligne</title>
 
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/app.js') }}"></script>
 
@@ -17,7 +17,7 @@
 
   <body id="page-top">
 
-      <nav id="navbar" class="navbar navbar-expand-lg fixed-top bg-dark collapse">
+      <nav id="navbar" class="navbar navbar-expand-lg fixed-top bg-dark">
           <a style="text-align:center" class="navbar-brand col-12 col-md-2" href="#">Hadrien Giraudeau</a>
           <div class="navbar-collapse col-12 col-md-8 col-lg-10" id="navbarNav">
               <ul class="navbar-nav ml-auto">

@@ -51,7 +51,8 @@ class SkillsController extends AdminController
      */
     public function store(SkillsRequest $request)
     {
-        $skill = Skill::create($request->all());
+
+        Skill::create($request->all());
 
         return redirect()->route('Skills')->with('success', 'La compétence a bien été ajouté');
     }

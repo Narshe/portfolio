@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Categories;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -28,16 +28,9 @@ class UpdateCategoriesTest extends TestCase
         $category = create('App\Category');
         $newCategory = make('App\Category');
 
-        $this->assertDatabaseHas('categories', ['name' => $category->name]);
+        $response = $this->patch(route('CategoriesUpdate', $category->id), $newCategory->toArray());
 
-        $response = $this->patch(route('CategoriesUpdate', [
-            'id' => $category->id,
-            'name' => $newCategory->name,
-            'type' => $newCategory->type
-        ]));
-
-        $this->assertDatabaseMissing('categories', ['name' => $category->name]);
-        $this->assertDatabaseHas('categories', ['name' => $newCategory->name]);
+        $this->assertDatabaseHas('categories', ['id' => $category->id, 'name' => $newCategory->name]);
 
         $response
             ->assertStatus(302)
@@ -97,34 +90,4 @@ class UpdateCategoriesTest extends TestCase
         ;
     }
 
-    /** @test */
-    public function category_name_is_required()
-    {
-        $c = create('App\Category');
-
-        $this->validatesCategory(make('App\Category', [
-            'id' => $c->id,
-            'name' => ""]
-        ));
-    }
-
-    /** @test */
-    public function category_name_is_lower_than_50_char()
-    {
-        $c = create('App\Category');
-        $this->validatesCategory(make('App\Category', [
-            'id' => $c->id,
-            'name' => str_random(51)]
-        ));
-    }
-
-    private function validatesCategory($category)
-    {
-        $this->expectException("Illuminate\Validation\ValidationException");
-        $response = $this->patch(route('CategoriesUpdate',[
-            'id' => $category->id,
-            'name' => $category->name,
-            'type' => $category->type
-        ]));
-    }
 }

@@ -62,10 +62,7 @@
   </select>
 </div>
 
-<div class="form-group">
-    <label class="custom-control custom-checkbox">
-    <input {{$realisation->visible ? 'checked' :  '' }} type="checkbox" name="visible" value="visible" class="custom-control-input">
-    <span class="custom-control-indicator"></span>
-    <span class="custom-control-description">Mettre en ligne</span>
-  </label>
+<div class="custom-control custom-checkbox">
+    <input {{$realisation->visible ? 'checked' :  '' }} id="checkbox" type="checkbox" name="visible" value="visible" class="custom-control-input">
+    <label class="custom-control-label" for="checkbox">Mettre en ligne</label>
 </div>

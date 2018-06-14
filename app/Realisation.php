@@ -53,10 +53,12 @@ class Realisation extends Model
                 'mediable_id'   => $this->id,
                 'type' => 'photo',
                 'alt'  =>  "{$this->name}-realisation",
-                'path' =>  $media->uploadFile($file, $dirname)
+                'path' =>  $media->storeFile($file, $dirname)
             ]);
         }
     }
+
+
     public function setVisibleAttribute($value)
     {
         $this->attributes['visible'] = !! $value;
@@ -83,6 +85,8 @@ class Realisation extends Model
                 return $media;
             }
         }
+
+        return $media;
     }
 
     public static function getVisibleRealisations()

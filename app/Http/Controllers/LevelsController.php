@@ -7,6 +7,10 @@ use App\Level;
 
 class LevelsController extends AdminController
 {
+    /**
+     * [index]
+     * @return View Admin/Levels/index.blade.php
+     */
     public function index()
     {
         $levels = Level::orderBy('value', 'ASC')->get();
@@ -14,6 +18,10 @@ class LevelsController extends AdminController
         return view('Admin.Levels.index', compact('levels'));
     }
 
+    /**
+     * [create]
+     * @return View Admin/Levels/index.blade.php
+     */
     public function create()
     {
         $level = new Level();
@@ -21,37 +29,48 @@ class LevelsController extends AdminController
         return view('Admin.Levels.create', compact('level'));
     }
 
+    /**
+     * [store]
+     * @param  LevelsRequest $request
+     * @return Redirect to levels/index
+     */
     public function store(LevelsRequest $request)
     {
-        $params = $request->all();
-        $level = new Level();
-        if ($level->create($params)) {
-            return redirect()->route('Levels')->with('success', 'Ce niveau a bien été ajouté');
-        } else {
-            return view('Admin.Levels.create', compact('level'))->withErrors();
-        }
+        Level::create($request->all());
+
+        return redirect()->route('Levels')->with('success', 'Ce niveau a bien été ajouté');
     }
 
-    public function edit($id)
+    /**
+     * [edit]
+     * @param  Level   $level
+     * @return View Admin/Levels/edit.blade.php
+     */
+    public function edit(Level $level)
     {
-        $level = Level::findOrFail($id);
         return view('Admin.Levels.edit', compact('level'));
     }
 
-    public function update($id, LevelsRequest $request)
+    /**
+     * [update]
+     * @param  Level         $level
+     * @param  LevelsRequest $request
+     * @return Redirect to levels/index
+     */
+    public function update(Level $level, LevelsRequest $request)
     {
-        $level = Level::findOrFail($id);
+        $level->update($request->all());
 
-        if ($level->update($request->all())) {
-            return redirect()->route('Levels')->with('success', 'Ce niveau a bien été modifié');
-        } else {
-            return view('Admin.Levels.edit', compact('level'))->withErrors();
-        }
+        return redirect()->route('Levels')->with('success', 'Ce niveau a bien été modifié');
     }
 
-    public function destroy($id)
+    /**
+     * [destroy]
+     * @param  Level  $level
+     * @return Redirect to levels/index
+     */
+    public function destroy(Level $level)
     {
-        $level = Level::findOrFail($id);
         $level->delete();
         return redirect()->route('Levels')->with('success', 'Ce niveau a bien été supprimé');
     }
