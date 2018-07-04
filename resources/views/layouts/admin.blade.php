@@ -26,14 +26,16 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav navbar-sidenav">
               @foreach ($adminMenu as $key => $menu)
-                     @if ($menu['active'])
-                         <li class="navbar-side-item active" data-placement="right" data-original-title="{{$menu['name']}}">
-                     @else
-                         <li class="navbar-side-item" data-placement="right" data-original-title="{{$menu['name']}}">
-                     @endif
+                  <li class="navbar-side-item {{$menu['active'] ? 'active' : '' }}" data-placement="right" data-original-title="{{$menu['name']}}">
                      <a class="navbar-sidenav-link" href="{{route($key)}}">
                       <i class="fa fa-fw fa-{{$menu['icon']}}"></i>
                       <span class="navbar-sidenav-link-text">{{$menu['name']}}</span>
+                      @if ($key === 'Contacts' && $unreadCount > 0)
+                          <span class="badge badge-danger ml-2">
+                               Msg non lu
+                            <span class="badge badge-light ml-1">{{ $unreadCount }}</span>
+                          </span>
+                      @endif
                     </a>
                   </li>
               @endforeach

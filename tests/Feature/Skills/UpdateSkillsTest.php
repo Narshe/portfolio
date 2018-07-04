@@ -17,7 +17,9 @@ class UpdateSkillsTest extends TestCase
     {
         parent::setUp();
 
-        $this->skill = create('App\Skill');
+        $this->skill = create('App\Skill', [
+            'path' => 'fakepath'
+        ]);
     }
     /** @test */
     public function admin_can_see_edit_form()
@@ -41,10 +43,10 @@ class UpdateSkillsTest extends TestCase
             'url'  => $newSkill->url,
             'category_id' => $newSkill->category_id,
             'level_id'  => $newSkill->level_id,
-            'description'   => $newSkill->description[0]
+            'description'   => $newSkill->description[0],
         ]);
 
-        $this->assertDatabaseHas('skills', ['id' => $this->skill->id, 'name' => $newSkill->name]);
+        $this->assertDatabaseHas('skills', ['id' => $this->skill->id, 'name' => $newSkill->name, 'path' => $this->skill->path]);
 
         $response
             ->assertStatus(302)

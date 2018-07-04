@@ -25,12 +25,6 @@ class SkillsController extends AdminController
         return view('Admin.Skills.index', compact('skills'));
     }
 
-
-    // public function show(Skill $skill)
-    // {
-    //     return view('Admin.Skills.show', compact('skill'));
-    // }
-
     /**
      * [create]
      * @return View Admin/Skills/create.blade.php
@@ -51,8 +45,9 @@ class SkillsController extends AdminController
      */
     public function store(SkillsRequest $request)
     {
+        $skill = new Skill();
 
-        Skill::create($request->all());
+        Skill::create($request->except('visible'));
 
         return redirect()->route('Skills')->with('success', 'La compétence a bien été ajouté');
     }
@@ -78,7 +73,9 @@ class SkillsController extends AdminController
      */
     public function update(Skill $skill, SkillsRequest $request)
     {
-        $skill->updateSkill();
+        $skill->setAttribute('visible', ($request->has('visible') && $request->visible));
+
+        $skill->update($request->except('visible'));
 
         return redirect()->route('Skills')->with('success', "Votre compétence a bien été modifié");
     }

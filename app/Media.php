@@ -9,24 +9,20 @@ use Illuminate\Support\Facades\Storage;
 
 class Media extends Model
 {
-    protected $fillable = ['path', 'type', 'alt', 'mediable_id', 'mediable_type'];
+    protected $fillable = ['path', 'type', 'alt', 'mediable_id', 'mediable_type', 'cover'];
 
     protected $table = "medias";
 
+    protected $visible = ['path', 'alt', 'type'];
+
     public function storeFile(UploadedFile $file, $dirname)
     {
-        if (app()->environment() === 'testing') return $file->store("testing/{$dirname}");
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> Hobbies
-        return $file->store("public/{$dirname}");
+        return $file->store($dirname, $this->getDisk());
     }
 
     public function deleteFile()
     {
-        Storage::delete($this->path);
+        Storage::disk($this->getDisk())->delete($this->path);
     }
 
     public function mediable()
@@ -34,36 +30,31 @@ class Media extends Model
         return $this->morphTo();
     }
 
-
     public function updateCover()
     {
 
-        if (!$this->mediable instanceof Realisation || $this->isCoverType())
+        if ($this->cover)
         return;
 
-        $media =  $this->where(['type' => 'cover', 'mediable_id' => $this->mediable_id])->first();
+        if($mediaCover = $this->getCover())
+        $mediaCover->toggleCover();
 
-        if($media)
-        $this->uncover($media);
-
-        $this->cover();
+        $this->toggleCover();
     }
 
-
-    public function isCoverType()
+    public function getCover()
     {
-        return $this->type === 'cover';
+        return $this->where(['cover' => true, 'mediable_id' => $this->mediable_id])->first();
     }
 
-    public function cover()
+    public function toggleCover()
     {
-        $this->update(['type' => 'cover']);
+        $this->update(['cover' => !$this->cover]);
     }
 
-    public function uncover($media)
+    private function getDisk()
     {
-        $media->update(['type' => 'photo']);
+        return app()->environment() === 'testing' ? 'testing' : 'public';
     }
-
 
 }

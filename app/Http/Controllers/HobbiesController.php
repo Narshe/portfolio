@@ -27,9 +27,8 @@ class HobbiesController extends AdminController
     public function create()
     {
         $hobby = new Hobby();
-        $hobbyCategories = Category::where('type', 'App\Hobby')->get();
 
-        return view('Admin.Hobbies.create', compact('hobby', 'hobbyCategories'));
+        return view('Admin.Hobbies.create', compact('hobby'));
     }
 
     /**
@@ -39,7 +38,13 @@ class HobbiesController extends AdminController
      */
     public function store(HobbiesRequest $request)
     {
-        $hobby = Hobby::create($request->all());
+        $hobby = Hobby::create([
+            'name' => $request->input('name'),
+            'visible' => !! $request->input('visible'),
+            'url' => $request->input('url'),
+            'description' => $request->input('description'),
+            'icon' => $request->input('icon')
+        ]);
 
         return redirect()->route('Hobbies')->with('success', 'Ce hobby a bien été ajouté');
     }
@@ -51,9 +56,7 @@ class HobbiesController extends AdminController
      */
     public function edit(Hobby $hobby)
     {
-        $hobbyCategories = Category::where('type', 'App\Hobby')->get();
-
-        return view('Admin.Hobbies.edit', compact('hobby', 'hobbyCategories'));
+        return view('Admin.Hobbies.edit', compact('hobby'));
     }
 
     /**
@@ -64,7 +67,14 @@ class HobbiesController extends AdminController
      */
     public function update(Hobby $hobby, HobbiesRequest $request)
     {
-        $hobby->update($request->all());
+
+        $hobby->update([
+            'name' => $request->input('name'),
+            'visible' => !! $request->input('visible'),
+            'url' => $request->input('url'),
+            'description' => $request->input('description'),
+            'icon' => $request->input('icon')
+        ]);
 
         return redirect()->route('Hobbies')->with('success', 'Ce hobby a bien été modifié');
     }

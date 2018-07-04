@@ -12,12 +12,12 @@ a:visited {
 body {
   font-family: $font-family;
 }
-
-.navbar {
-
-  padding: 1rem 2rem 1rem 2rem;
-  border-bottom: 3px solid $green;
-}
+//
+// .navbar {
+//
+//   padding: 1rem 2rem 1rem 2rem;
+//   border-bottom: 3px solid $green;
+// }
 
 
 .navbar-brand {
@@ -328,7 +328,7 @@ section.experiences .table{
     margin: 0;
 }
 
-section.experiences .card-body{
+section.experiences .card-body, section.experiences tr{
     padding:0;
     margin: 0;
 }
@@ -552,18 +552,15 @@ section.experiences .table td {
     height: 85px;
 }
 .slide {
-    display: none;
+    position: absolute;
+    height: 300px;
+    bottom: 0;
+    left:0;
+    top:0;
+    right:0;
     //width:100%;
     //height:350px !important;
-    position: relative;
 
-}
-
-
-.carousel {
-    position: relative;
-    overflow: hidden;
-    padding:0;
 }
 
 
@@ -837,4 +834,145 @@ section.experiences .table td {
     to {
         transform: translateX(-100%);
     }
+}
+
+.toLeft-enter-active {
+    animation: toLeftEnter .5s;
+}
+
+.toLeft-leave-active {
+    animation: toLeftLeave .5s;
+}
+
+.toRight-enter-active {
+    animation: toRightEnter .5s;
+}
+
+.toRight-leave-active {
+    animation: toRightLeave .5s;
+}
+
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  /*opacity: 0;
+ transform: translateY(30px);*/
+}
+
+@keyframes toLeftLeave {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-100%);
+    display: none;
+  }
+}
+
+@keyframes toLeftEnter {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes toRightEnter {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes toRightLeave {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+
+.carousel {
+    position: relative;
+    min-height: 350px;
+    margin: auto;
+    overflow-x: hidden;
+}
+// .mySlide {
+//
+//   background-size: contain;
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   bottom: 0;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//
+// }
+// .slidesContainer {
+//   position: relative;
+//   height: 300px;
+// }
+
+.toLeft-enter-active {
+    animation: toLeftEnter .5s;
+}
+
+.toLeft-leave-active {
+    animation: toLeftLeave .5s;
+}
+
+.toRight-enter-active {
+    animation: toRightEnter .5s;
+}
+
+.toRight-leave-active {
+    animation: toRightLeave .5s;
+}
+
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  /*opacity: 0;
+ transform: translateY(30px);*/
+}
+
+@keyframes toLeftLeave {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-100%);
+    display: none;
+  }
+}
+
+@keyframes toLeftEnter {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes toRightEnter {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes toRightLeave {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }

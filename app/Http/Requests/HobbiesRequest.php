@@ -19,6 +19,8 @@ class HobbiesRequest extends Request
             'category_id' => $this->existsWhere('categories', 'type', 'App\Hobby'),
             'url' => 'nullable|url',
             'visible' => 'nullable',
+            'description' => 'string|nullable',
+            'icon' => 'string|nullable'
         ];
     }
 }

@@ -31,19 +31,13 @@ class CategoryTest extends TestCase
     /** @test */
     public function it_has_visible_skills()
     {
-        $this->assertVisible(Skill::class, 'visibleSkills');
+        $this->assertVisible(Skill::class, 'skills');
     }
 
     /** @test */
     public function it_has_visible_realisations()
     {
-        $this->assertVisible(Realisation::class, 'visibleRealisations');
-    }
-
-    /** @test */
-    public function it_has_visible_hobbies()
-    {
-        $this->assertVisible(Hobby::class, 'visibleHobbies');
+        $this->assertVisible(Realisation::class, 'realisations');
     }
 
     /** @test */
@@ -58,11 +52,6 @@ class CategoryTest extends TestCase
         $this->assertHasManyRelation(Realisation::class, 'realisations');
     }
 
-    /** @test */
-    public function it_has_hobbies()
-    {
-        $this->assertHasManyRelation(Hobby::class, 'hobbies');
-    }
 
     private function assertVisible($modelName, $prop)
     {

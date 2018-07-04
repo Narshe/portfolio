@@ -8,23 +8,16 @@
     <label for="url">Url</label>
     <input class="form-control" type="text" name="url" id="url" value="{{$hobby->url}}" />
 </div>
+
 <div class="form-group">
-  <label for="category_id"> Categories </label>
-  <select id="category_id" name="category_id" class="form-control">
-      @foreach($hobbyCategories as $key => $type)
-          @if($type->id == $hobby->category_id)
-            <option selected value="{{ $type->id }}"> {{ $type->name }} </option>
-          @else
-            <option value="{{ $type->id }}"> {{ $type->name }} </option>
-          @endif
-      @endforeach
-  </select>
+    <label for="description">Description</label>
+    <textarea class="form-control" name="description" id="description">{{ $hobby->description}}</textarea>
 </div>
 
-{{-- <div class="form-group">
-  <label for="media"> Image: </label>
-  <input class="form-control" type="file" name="media" id="media">
-</div> --}}
+<div class="form-group">
+    <label for="icon">Icon</label>
+    <input type="text" class="form-control" name="icon" id="icon" value="{{$hobby->icon}}" />
+</div>
 
 <div class="custom-control custom-checkbox">
     <input {{$hobby->visible ? 'checked' :  '' }} id="checkbox" type="checkbox" name="visible" value="visible" class="custom-control-input">

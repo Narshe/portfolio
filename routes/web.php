@@ -14,11 +14,15 @@
 
 //Route::get('/', 'PagesController@underConstruction')->name('underContruct');
 Route::get('/', 'PagesController@home')->name('home');
+
+
 Route::post('/contact/store', 'ContactsController@store')->name('ContactStore');
 
 
 Route::group(['prefix' => 'adminBlablaNomATrouver', 'middleware' => 'auth.basic.once'], function() {
-//************* Levels ***********************/
+
+
+   /************* Levels ***********************/
 
     Route::get('/', 'PagesController@admin')->name('HomeAdmin');
 
@@ -214,6 +218,23 @@ Route::group(['prefix' => 'adminBlablaNomATrouver', 'middleware' => 'auth.basic.
       Route::patch('/{media}/updateCover', 'UpdateCoversController@update')
         ->where(['id' => '[0-9]+'])
         ->name('CoversUpdate');
+
+    });
+
+    Route::group(['prefix' => 'contacts'], function() {
+
+      Route::get('/', 'ContactsController@index')->name('Contacts');
+
+      Route::get('/{contact}', 'ContactsController@show')->name('ContactsShow');
+      //
+      //
+    //   //update
+    //   Route::patch('/{media}/edit', 'MediasController@update')
+    //     ->where(['id' => '[0-9]+'])
+    //     ->name('MediasUpdate');
+
+      //delete
+      Route::delete('/{contact}/destroy', 'ContactsController@destroy')->name('ContactsDestroy');
 
     });
 

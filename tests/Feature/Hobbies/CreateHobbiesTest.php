@@ -19,7 +19,6 @@ class CreateHobbiesTest extends TestCase
 
         $response
             ->assertStatus(200)
-            ->assertSee($category->name)
         ;
     }
 

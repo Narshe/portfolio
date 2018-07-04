@@ -35,7 +35,7 @@
                                     </table>
                                     <div class="row">
 
-                                        @if($mediaType == 'Realisation' && $media->type !== 'cover')
+                                        @if(!$media->cover)
                                             <div class="col-12">
                                                 <form action="{{ route('CoversUpdate', $media->id)}}" method="POST">
                                                     {{ csrf_field()}}

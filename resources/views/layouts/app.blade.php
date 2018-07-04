@@ -8,11 +8,10 @@
     <meta name="author" content="">
 
     <title>Hadrien Giraudeau - Cv en ligne</title>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/app.js') }}"></script>
 
+    <script src="{{ asset('js/app.js') }}" defer></script>
   </head>
 
   <body id="page-top">
@@ -92,7 +91,7 @@
       </nav>
 
 
-      <div class="container-fluid main-content">
+      <div class="container-fluid main-content" id="app">
 
           @yield('content')
 
@@ -122,5 +121,6 @@
             </div>
           </div>
       </footer>
+      {{-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> --}}
 
   </body>

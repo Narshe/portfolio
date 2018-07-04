@@ -17,8 +17,8 @@ class CreateHobbiesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('url')->nullable();
-            $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->text('description')->nullable();
+            $table->string('icon')->nullable();
             $table->boolean('visible')->default(1);
         });
     }

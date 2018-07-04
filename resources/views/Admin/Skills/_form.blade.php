@@ -27,7 +27,7 @@
   <label for="category_id"> Categories </label>
   <select id="category_id" name="category_id" class="form-control">
       @foreach($skillCategories as $key => $type)
-          @if($key == $skill->category_id)
+          @if($key === $skill->category_id)
             <option selected value="{{ $key }}"> {{ $type }} </option>
           @else
             <option value="{{ $key }}"> {{ $type }} </option>
@@ -38,8 +38,7 @@
 
 <div class="form-group">
   <label for="description"> Description </label>
-  <textarea id="description" name="description" cols="30" rows="10" class="form-control">@foreach ($skill->getDescriptions() as $description){{ $description }},@endforeach
-  </textarea>
+  <textarea id="description" name="description" cols="30" rows="10" class="form-control">{{ $skill->description }}</textarea>
 </div>
 
 <div class="form-group">

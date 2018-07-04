@@ -13,6 +13,7 @@ $factory->define(App\Skill::class, function (Faker $faker) {
             return factory(App\Level::class)->create()->id;
         },
         'description' => $faker->paragraph,
-        'visible' => 1
+        'visible' => 1,
+        'path' => null
     ];
 });

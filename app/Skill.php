@@ -9,7 +9,11 @@ use App\Events\UpdateMedia;
 
 class Skill extends Model
 {
-    protected $fillable = ['name', 'url', 'description', 'category_id', 'level_id', 'visible'];
+    protected $fillable = ['name', 'url', 'description', 'category_id', 'level_id', 'visible', 'path'];
+
+    protected $casts = [
+       'visible' => 'boolean'
+    ];
 
     public function realisations()
     {
@@ -21,14 +25,14 @@ class Skill extends Model
         return $this->belongsTo('App\Category');
     }
 
-    public function media()
-    {
-        return $this->morphOne('App\Media', 'mediable');
-    }
-
     public function level()
     {
         return $this->belongsTo('App\Level');
+    }
+
+    public function scopeVisible($query)
+    {
+        return $query->where('visible', 1);
     }
 
     public function getDescriptions()
@@ -37,38 +41,17 @@ class Skill extends Model
     }
 
 
-    public function uploadFile()
-    {
-        $media = new Media();
-
-        $media->create([
-            'mediable_type' => Skill::class,
-            'mediable_id'   => $this->id,
-            'type' => 'logo',
-            'alt'  => request('name'). '-' . 'logo',
-            'path' => $media->storeFile(request('media'), 'logos/skills')
-        ]);
-    }
-
     public function setVisibleAttribute($value)
     {
-        $this->attributes['visible'] = !! $value;
-    }
-
-    public function updateSkill()
-    {
-        if (request()->has('media')) {
-            event(new UpdateMedia($this));
-        }
-
-        $this->update(request()->all());
+        $this->attributes['visible'] = $value;
     }
 
     public static function getVisibleSkills()
     {
+
         return Category::getCategories(
-            'visibleSkills',
-            ['visibleSkills.level','visibleSkills.media'],
+            'skills',
+            ['skills.level'],
             Skill::class
         );
     }

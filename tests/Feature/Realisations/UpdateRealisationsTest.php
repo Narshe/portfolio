@@ -58,7 +58,7 @@ class UpdateRealisationsTest extends TestCase
         $media = create('App\Media', [
             'mediable_id'   => $realisation->id,
             'mediable_type' => 'App\Realisation',
-            'type'  => 'cover',
+            'cover'  => 1,
             'path'  => 'fakepath'
         ]);
 
@@ -70,8 +70,8 @@ class UpdateRealisationsTest extends TestCase
 
         $this->patch(route('CoversUpdate', $mediaWithoutcover->id));
 
-        $this->assertEquals('cover', $mediaWithoutcover->fresh()->type);
-        $this->assertEquals('photo', $media->fresh()->type);
+        $this->assertTrue(!! $mediaWithoutcover->fresh()->cover);
+        $this->assertFalse(!! $media->fresh()->cover);
 
     }
 

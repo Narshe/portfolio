@@ -113,6 +113,19 @@ body.fixed-nav {
   height:150px;
 }
 
+
+.unread_message
+{
+    display: inline-block;
+    width:25px;
+    height: 25px;
+    text-align: center;
+    font-size: 0.9rem;
+    border-radius: 50%;
+    line-height: 25px;
+    vertical-align: middle;
+}
+
 @media screen and (min-width: 992px) {
 
     .main-content {

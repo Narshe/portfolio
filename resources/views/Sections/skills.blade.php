@@ -22,8 +22,10 @@
                     <div class="col-12">
                         <h4>{{$category->name}}</h4>
                     </div>
-                    @foreach ($category->visibleSkills as $skill)
-                            <div class="col-6 col-sm-5 col-md-4 col-lg-3">
+
+                    @foreach ($category->skills as $skill)
+                            <skill :skill="{{ $skill }}"></skill>
+                            {{-- <div class="col-6 col-sm-5 col-md-4 col-lg-3">
                                 <div class="card card-skill text-white mb-3" style="max-width: 20rem;">
                                     <span class="fa-icon">
                                         <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -60,7 +62,8 @@
                                         <a target="_blank" class="btn btn-dark card-description-link" href="{{ $skill->url }}">Lien</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
+
                     @endforeach
                 </div>
             </div>

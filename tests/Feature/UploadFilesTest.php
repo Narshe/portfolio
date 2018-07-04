@@ -37,7 +37,7 @@ class UploadFilesTest extends TestCase
     }
 
     /** @test */
-    public function admin_can_upload_file_for_realisations()
+    public function admin_can_upload_files_for_realisations()
     {
         $file1 = UploadedFile::fake()->image('avatar.jpg');
         $file2 = UploadedFile::fake()->image('avatar.jpg');
@@ -56,7 +56,7 @@ class UploadFilesTest extends TestCase
     }
 
     /** @test */
-    public function admin_can_add_file_for_realisations_during_update()
+    public function admin_can_add_files_for_realisations_during_update()
     {
         $file = UploadedFile::fake()->image('photo.jpg');
         $realisation = create('App\Realisation');
@@ -78,32 +78,29 @@ class UploadFilesTest extends TestCase
 
         $response = $this->post(route('SkillsStore'), $skill->toArray());
 
-        Storage::disk('testing')->assertExists("logos/skills/{$file->hashName()}");
+        Storage::disk('testing')->assertExists("skills/{$file->hashName()}");
 
-        Storage::deleteDirectory('testing');
     }
 
     /** @test */
     public function admin_can_update_uploaded_file_for_skills()
     {
         $file =  UploadedFile::fake()->image('avatar.jpg');
-        $path = $file->store("testing/logos/skills");
+        $path = $file->store("skills", "testing");
 
-        $skill = create('App\Skill');
-
-        $media = create('App\Media', [
-            'path'  => $path,
-            'mediable_id' => $skill->id,
-            'mediable_type' => 'App\Skill'
+        $skill = create('App\Skill', [
+            'path' => $path
         ]);
 
-        $this->patch(route('SkillsUpdate', $skill->id),[
-            'name'  => $skill->name,
-            'media' => $newFile = UploadedFile::fake()->image('newAvatar.jpg')
+        $newSkill = make('App\Skill', [
+            'media' => $newFile = UploadedFile::fake()->image('newAvatar.jpg'),
+            'path' => $path
         ]);
 
-        Storage::disk('testing')->assertMissing("logos/skills/{$file->hashName()}");
-        Storage::disk('testing')->assertExists("logos/skills/{$newFile->hashName()}");
+        $this->patch(route('SkillsUpdate', $skill->id), $newSkill->toArray());
+
+        Storage::disk('testing')->assertMissing("skills/{$file->hashName()}");
+        Storage::disk('testing')->assertExists("skills/{$newFile->hashName()}");
 
     }
 
@@ -122,7 +119,7 @@ class UploadFilesTest extends TestCase
 
         $this->delete(route('SkillsDestroy', $skill->id));
 
-        Storage::disk('testing')->assertMissing("logos/skills/{$file->hashName()}");
+        Storage::disk('testing')->assertMissing("skills/{$file->hashName()}");
 
         Storage::deleteDirectory('testing');
     }

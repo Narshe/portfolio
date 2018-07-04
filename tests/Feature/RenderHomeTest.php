@@ -25,7 +25,13 @@ class RenderHomeTest extends TestCase
     /** @test */
     public function home_page_should_not_render_invisible_hobbies()
     {
-        $this->renderWithCategories(\App\Hobby::class, 0);
+        $hobby = create('App\Hobby', ['visible' => 0]);
+
+        $response = $this->get("/");
+
+        $response
+            ->assertDontSee($hobby->name)
+        ;
     }
 
     /** @test */
@@ -41,9 +47,16 @@ class RenderHomeTest extends TestCase
     }
 
     /** @test */
-    public function home_page_should_render_hobbies_with_their_categories()
+    public function home_page_should_render_hobbies()
     {
-        $this->renderWithCategories(\App\Hobby::class);
+        $hobby = create('App\Hobby');
+
+        $response = $this->get("/");
+
+        $response
+            ->assertSee($hobby->name)
+        ;
+
     }
 
     /** @test */
@@ -55,6 +68,7 @@ class RenderHomeTest extends TestCase
         $response = $this->get("/");
 
         $response->assertSee($school->name);
+
     }
 
     /** @test */

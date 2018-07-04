@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Storage;
 class MediaObserver {
 
 
-
   public function deleting(Media $media)
   {
 
@@ -18,7 +17,7 @@ class MediaObserver {
       Storage::deleteDirectory($dirname);
     }
     else {
-      Storage::delete($media->path);
+      $media->deleteFile();
     }
 
   }

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
 
 class Realisation extends Model
 {
@@ -14,9 +15,13 @@ class Realisation extends Model
         'date_end'
     ];
 
+    protected $casts = [
+       'visible' => 'boolean'
+    ];
+
     public function medias()
     {
-        return $this->morphMany('App\Media', 'mediable');
+        return $this->morphMany('App\Media', 'mediable')->latest('cover');
     }
 
     public function category()
@@ -29,6 +34,11 @@ class Realisation extends Model
         return $this->belongsToMany('App\Skill');
     }
 
+    public function scopeVisible($query)
+    {
+        return $query->where('visible', 1);
+    }
+
     public function updateRealisation()
     {
         if (request()->has('files')) {
@@ -36,14 +46,14 @@ class Realisation extends Model
             $this->storeFiles($this);
         }
 
-        $this->skills()->sync(request('skills'));
+        $this->attributes['visible'] = request()->has('visible');
 
-        $this->update(request()->all());
+        $this->update(request()->except('visible'));
     }
 
     public function storeFiles()
     {
-        $dirname = 'pictures/realisations/'.$this->id;
+        $dirname = "pictures/realisations/{$this->id}";
 
         foreach (request('files') as $file) {
 
@@ -53,54 +63,38 @@ class Realisation extends Model
                 'mediable_id'   => $this->id,
                 'type' => 'photo',
                 'alt'  =>  "{$this->name}-realisation",
-<<<<<<< HEAD
-                'path' =>  $media->uploadFile($file, $dirname)
-            ]);
-        }
-    }
-=======
                 'path' =>  $media->storeFile($file, $dirname)
             ]);
         }
     }
 
 
->>>>>>> Hobbies
-    public function setVisibleAttribute($value)
-    {
-        $this->attributes['visible'] = !! $value;
-    }
-
     public function getDateBeginAttribute($value)
     {
         return new \Datetime($value);
-
-        // $this->attributes['date_begin'] = new \DateTime($value);
     }
 
     public function getDateEndAttribute($value)
     {
         return new \Datetime($value);
-        // $this->attributes['date_end'] = new \DateTime($value);
     }
-
-    public function getCoverAttribute() {
-
-        foreach ($this->medias as $media) {
-
-            if ($media->type ==  'cover') {
-                return $media;
-            }
-        }
-
-        return $media;
-    }
+    //
+    // public function getCoverAttribute() {
+    //
+    //
+    //     $cover = $this->medias->first(function($media) {
+    //         return $media->cover;
+    //     });
+    //
+    //     return $cover ?: $this->medias[0];
+    //
+    // }
 
     public static function getVisibleRealisations()
     {
          return Category::getCategories(
-             'visibleRealisations',
-             ['visibleRealisations.medias','visibleRealisations.skills'],
+             'realisations',
+             ['realisations.medias','realisations.skills'],
               Realisation::class
          );
 

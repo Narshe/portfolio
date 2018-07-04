@@ -9,22 +9,29 @@ use App\Media;
 class RealisationObserver {
 
 
-public function created(Realisation $realisation)
-{
-    $realisation->skills()->sync(request('skills'));
+    public function created(Realisation $realisation)
+    {
+        $realisation->skills()->sync(request('skills'));
 
-    if(!request()->has('files')) return ;
+        if(!request()->has('files')) return ;
 
-    $realisation->storeFiles();
+        $realisation->storeFiles();
 
-}
+    }
 
-  public function deleted(Realisation $realisation) {
+    public function saved(Realisation $realisation)
+    {
+        $realisation->skills()->sync(request('skills'));
+    }
 
-      foreach($realisation->medias as $media) {
-        $media->delete();
-      }
-  }
+
+    public function deleted(Realisation $realisation) {
+
+        foreach($realisation->medias as $media) {
+            $media->delete();
+        }
+    }
+
 
 
 }

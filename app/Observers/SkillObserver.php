@@ -4,23 +4,39 @@ namespace App\Observers;
 
 use App\Skill;
 use App\Media;
-
+use Illuminate\Support\Facades\Storage;
 
 class SkillObserver {
 
-    public function created(Skill $skill)
+
+    protected $disk;
+
+    public function __construct()
     {
-      if (request()->has('media')) {
-          
-        $skill->uploadFile();
-      }
+        $this->disk = app()->environment() === 'testing' ? 'testing' : 'public';
     }
 
-    public function deleting(Skill $skill) {
+    public function creating(Skill $skill)
+    {
+        if (request()->all()) {
 
-        if($skill->media) {
-          $skill->media->delete();
+            $skill->visible = request()->has('visible') && request('visible');
+        }
+
+        if (request()->has('media')) {
+
+            $skill->path = request('media')->store('skills', $this->disk);
         }
     }
 
+    public function saving(Skill $skill)
+    {
+        $test = $skill->path;
+        if ($skill->path) {
+            Storage::disk($this->disk)->delete($skill->path);
+        }
+
+        $skill->path = request('media')->store('skills', $this->disk);
+    }
+    
 }

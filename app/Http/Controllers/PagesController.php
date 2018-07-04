@@ -9,8 +9,6 @@ use App\Level;
 use App\School;
 use App\Hobby;
 use App\Skill;
-use App\Category;
-use App\Categorizable;
 
 class PagesController extends Controller
 {
@@ -18,17 +16,18 @@ class PagesController extends Controller
     public function home()
     {
 
-        $levels = Level::get();
-        $schools = School::get();
+        $levels = Level::oldest('value')->get();
+        $schools = School::latest('date_begin')->get();
+        $hobbies = Hobby::visible()->get();
 
         $skillsWithCategories = Skill::getVisibleSkills();
         $realisationsWithCategories = Realisation::getVisibleRealisations();
-        $hobbiesWithCategories = Hobby::getVisibleHobbies();
+
 
         return view('home', compact(
             'skillsWithCategories',
             'realisationsWithCategories',
-            'hobbiesWithCategories',
+            'hobbies',
             'levels',
             'schools'
         ));
@@ -40,15 +39,9 @@ class PagesController extends Controller
         return view('Admin.home_admin');
     }
 
-
     public function underConstruction()
     {
         return view('underConstruction');
     }
 
-    public function test(Request $request)
-    {
-
-        dump($request->all());
-    }
 }

@@ -15,8 +15,4 @@ class School extends Model
 
     protected $fillable = ['name', 'city', 'description', 'date_begin', 'date_end', 'url'];
 
-    public static function get()
-    {
-         return self::orderBy('date_begin', 'DESC')->get();
-    }
 }

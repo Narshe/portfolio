@@ -59,7 +59,16 @@ class RealisationsController extends AdminController
      */
     public function store(RealisationRequest $request)
     {
-        Realisation::create($request->all());
+        Realisation::create([
+            'name' => $request->input('name'),
+            'visible' => !! $request->input('visible'),
+            'url' => $request->input('url'),
+            'date_begin' => $request->input('date_begin'),
+            'date_end' => $request->input('date_end'),
+            'company' => $request->input('company'),
+            'category_id' => $request->input('category_id'),
+            'position' => $request->input('position'),
+        ]);
 
         return redirect()->route('Realisations')->with('success', 'Cette réalisation a bien été ajouté');
     }

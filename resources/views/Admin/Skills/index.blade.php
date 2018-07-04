@@ -10,6 +10,7 @@
         <th>Url</th>
         <th>Catégorie</th>
         <th>Niveau</th>
+        <th>Visible</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -21,6 +22,7 @@
           <td><a target="_blank" href="{{ $skill->url }}">{{ strtolower($skill->name) }}</a></td>
           <td>{{ $skill->Category->name }}</td>
           <td>{{ $skill->Level->name }}</td>
+          <td>{{ $skill->visible ? 'Oui' : 'Non'}}</td>
           <td>
             <a class="btn btn-info" href="{{route('SkillsEdit', $skill->id)}}">Editer</a>
             <form style="display:inline" method="POST" action="{{route('SkillsDestroy', $skill->id)}}">

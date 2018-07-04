@@ -15,7 +15,8 @@
         "laravel-mix": "^2.1.11",
         "lodash": "^4.17.4",
         "jquery": "^3.2.1",
-        "font-awesome": "*"
+        "font-awesome": "*",
+        "vue": "^2.5.7"
     },
     "dependencies": {
         "bootstrap": "^4.0.0-beta.2",

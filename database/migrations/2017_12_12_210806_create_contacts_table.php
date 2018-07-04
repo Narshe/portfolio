@@ -19,6 +19,8 @@ class CreateContactsTable extends Migration
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
             $table->text('content');
+            $table->string('client_ip');
+            $table->boolean('is_read')->default(0);
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ use App\Observers\RealisationObserver;
 use App\Observers\HobbyObserver;
 
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
           Skill::observe(SkillObserver::class);
           Realisation::observe(RealisationObserver::class);
           Hobby::observe(HobbyObserver::class);
+
     }
 
     /**

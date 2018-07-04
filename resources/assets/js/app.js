@@ -6,10 +6,49 @@
 
 //require('./bootstrap');
 window.$ = require('jquery');
+window.axios = require('axios');
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+
+let token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
 require("font-awesome-webpack");
 
-import Blur from './class/Blur.js';
-import Carousel from './class/Carousel.js';
+// import Blur from './class/Blur.js';
+// import Carousel from './class/Carousel.js';
+
+window.Vue = require('vue');
+
+window.events = new Vue()
+
+window.flash = function(body, success = true) {
+
+    window.events.$emit('flash', {
+        body,
+        success
+    })
+}
+Vue.component('carousel', require('./components/Carousel.vue'));
+Vue.component('skill', require('./components/Skill.vue'));
+Vue.component('hobby', require('./components/Hobby.vue'));
+Vue.component('contact', require('./components/Contact.vue'));
+Vue.component('flash', require('./components/Flash.vue'));
+
+const app = new Vue({
+    el: '#app'
+});
 
 
 $(function() {
@@ -81,87 +120,87 @@ $(function() {
 
     /** Ajax **/
 
-    $('#form-contact').on('submit', function(e) {
-
-        e.preventDefault();
-
-        let timerRunning = (Date.now() >= (start + end));
-
-        $('.form-error').each(function() {
-            $(this).fadeOut("fast");
-
-        });
-
-        if (timerRunning) {
-
-            $('.alert').fadeOut("fast");
-
-            $.ajax({
-                    method: $(this).attr('method'),
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    dataType: "json",
-
-                })
-                .done(function(data){
-                    $('.form-error').each(function() {
-                        $(this).fadeOut("fast");
-                    });
-                    $('.alert').removeClass('alert-danger').addClass('alert-success').fadeIn('slow');
-                    $('.alert > span').html("Message bien envoyé");
-                    start = Date.now();
-                })
-                .fail(function(data){
-
-                    $(data.responseJSON.errors).each(function(key, el) {
-
-                        for(let i in el) {
-                            let input = $('.' + i);
-
-                            if (input) {
-
-                                if (input.next().length == 0) {
-                                    input.after('<span style="display:none" class="form-error">'+el[i][0]+'</span>');
-                                }
-                                input.next().fadeIn("fast", function() {
-                                    $('.form-error').clearQueue();
-                                });
-                            }
-
-                        }
-                    });
-
-                })
-                .always(function(){
-                    $('.alert').clearQueue();
-                });
-            ;
-        }
-        else {
-
-            let timeLeft = ( (end/1000) - Math.floor((Date.now() - start) / 1000) );
-            let counter = 1;
-
-            $('.alert > span').html('Vous devez attendre '+ timeLeft +' avant de pouvoir relancer la requete');
-            $('.alert').removeClass('alert-success').addClass('alert-danger').fadeIn('slow');
-
-            let submitTimerMessageId = setInterval(function() {
-
-                if (counter >= timeLeft) {
-                    clearInterval(submitTimerMessageId);
-                    $('.alert').fadeOut();
-                }
-                else {
-                    $('.alert > span').html('Vous devez attendre '+ (timeLeft - counter) +' avant de pouvoir relancer la requete');
-                }
-
-                counter++;
-
-            },1000);
-        }
-
-
-    });
+    // $('#form-contact').on('submit', function(e) {
+    //
+    //     e.preventDefault();
+    //
+    //     let timerRunning = (Date.now() >= (start + end));
+    //
+    //     $('.form-error').each(function() {
+    //         $(this).fadeOut("fast");
+    //
+    //     });
+    //
+    //     if (timerRunning) {
+    //
+    //         $('.alert').fadeOut("fast");
+    //
+    //         $.ajax({
+    //                 method: $(this).attr('method'),
+    //                 url: $(this).attr('action'),
+    //                 data: $(this).serialize(),
+    //                 dataType: "json",
+    //
+    //             })
+    //             .done(function(data){
+    //                 $('.form-error').each(function() {
+    //                     $(this).fadeOut("fast");
+    //                 });
+    //                 $('.alert').removeClass('alert-danger').addClass('alert-success').fadeIn('slow');
+    //                 $('.alert > span').html("Message bien envoyé");
+    //                 start = Date.now();
+    //             })
+    //             .fail(function(data){
+    //
+    //                 $(data.responseJSON.errors).each(function(key, el) {
+    //
+    //                     for(let i in el) {
+    //                         let input = $('.' + i);
+    //
+    //                         if (input) {
+    //
+    //                             if (input.next().length == 0) {
+    //                                 input.after('<span style="display:none" class="form-error">'+el[i][0]+'</span>');
+    //                             }
+    //                             input.next().fadeIn("fast", function() {
+    //                                 $('.form-error').clearQueue();
+    //                             });
+    //                         }
+    //
+    //                     }
+    //                 });
+    //
+    //             })
+    //             .always(function(){
+    //                 $('.alert').clearQueue();
+    //             });
+    //         ;
+    //     }
+    //     else {
+    //
+    //         let timeLeft = ( (end/1000) - Math.floor((Date.now() - start) / 1000) );
+    //         let counter = 1;
+    //
+    //         $('.alert > span').html('Vous devez attendre '+ timeLeft +' avant de pouvoir relancer la requete');
+    //         $('.alert').removeClass('alert-success').addClass('alert-danger').fadeIn('slow');
+    //
+    //         let submitTimerMessageId = setInterval(function() {
+    //
+    //             if (counter >= timeLeft) {
+    //                 clearInterval(submitTimerMessageId);
+    //                 $('.alert').fadeOut();
+    //             }
+    //             else {
+    //                 $('.alert > span').html('Vous devez attendre '+ (timeLeft - counter) +' avant de pouvoir relancer la requete');
+    //             }
+    //
+    //             counter++;
+    //
+    //         },1000);
+    //     }
+    //
+    //
+    // });
 
     $('.card-experiences').each(function() {
 
@@ -191,10 +230,10 @@ $(function() {
 
     });
 
-    $('.close').click(function() {
-
-        $(this).parent().fadeOut();
-    });
+    // $('.close').click(function() {
+    //
+    //     $(this).parent().fadeOut();
+    // });
 
     $('.email-footer-badge').on('click', function() {
 
@@ -219,8 +258,6 @@ $(function() {
     });
 
     $(window).on('load scroll', setCurrentSession);
-    Blur.bind('.card-skill');
-    Blur.bind('.card-hobbies-container');
-    Carousel.bind('.card-experiences');
+
 
 });

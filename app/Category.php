@@ -13,10 +13,8 @@ class Category extends Model
     protected static function boot()
     {
         parent::boot();
-
-
+        
         static::deleting(function($category) {
-
 
             if($relation = $category->getRelation($category)) {
 
@@ -25,42 +23,19 @@ class Category extends Model
         });
     }
 
-
-    public function visibleSkills()
-    {
-        return $this->hasMany('App\Skill')->whereVisible(true);
-    }
-
     public function skills()
     {
-        return $this->hasMany('App\Skill');
-    }
-
-    public function visibleRealisations()
-    {
-        return $this->hasMany('App\Realisation')->whereVisible(true);
+        return $this->hasMany('App\Skill')->visible();
     }
 
     public function realisations()
     {
-        return $this->hasMany('App\Realisation');
+        return $this->hasMany('App\Realisation')->visible();
     }
 
-    public function visibleHobbies()
+    public function scopeVisible($query)
     {
-        return $this->hasMany('App\Hobby')->whereVisible(true);
-    }
-
-    public function hobbies()
-    {
-        return $this->hasMany('App\Hobby');
-    }
-
-    public function getIcons()
-    {
-        $icons = ['jeux videos' => 'gamepad', 'cinéma' => 'film', 'informatique' => 'terminal'];
-
-        return isset($icons[strtolower($this->name)]) ? $icons[strtolower($this->name)] : '';
+        return $query->where('visible', true);
     }
 
     public function getRelation($category)

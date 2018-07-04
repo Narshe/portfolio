@@ -9,29 +9,18 @@ class Hobby extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['name', 'url', 'category_id', 'visible'];
+    protected $fillable = ['name', 'url', 'visible', 'description', 'icon'];
 
-    public function category()
-    {
-        return $this->belongsTo('App\Category');
-    }
-    //
-    // public function media()
-    // {
-    //     return $this->morphOne('App\Media', 'mediable');
-    // }
 
-    public function setVisibleAttribute($value)
+    public function getDescription()
     {
-        $this->attributes['visible'] = !! $value;
+        return explode(',', $this->description);
     }
 
-    public static function getVisibleHobbies()
+    public function scopeVisible($query)
     {
-        return Category::getCategories(
-            'visibleHobbies',
-            [],
-            Hobby::class
-        );
+        return $query->where('visible', 1);
     }
+
+
 }
