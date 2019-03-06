@@ -1,68 +1,35 @@
 // @import "~bootstrap/dist/css/bootstrap.min";
 @import "_variables.scss";
+@import "navbar.scss";
+@import "presentation.scss";
+@import "skills.scss";
+@import "experiences.scss";
+@import "formations.scss";
+@import "cultures.scss";
+@import "contacts.scss";
 
-a:focus {
+body {
+    font-size:14px;
+    font-family: $font-family;
+}
+
+a:focus, a:visited {
     border: none;
 }
 
-a:visited {
-    border:none;
+a {
+    text-decoration: none;
 }
 
-body {
-  font-family: $font-family;
-}
-//
-// .navbar {
-//
-//   padding: 1rem 2rem 1rem 2rem;
-//   border-bottom: 3px solid $green;
-// }
-
-
-.navbar-brand {
-  font-weight: 900;
-  text-transform: uppercase;
-  color: $white;
+.bg-green {
+    background-color: $green !important;
 }
 
-.navbar-brand:hover {
-  color: $green;
-}
-
-.navbar-nav {
-
-    li {
-        text-align: center;
-        a {
-            text-transform: uppercase;
-            color: $white;
-        }
-    }
-
-    .active a{
-        color: $green;
-        //border: dotted 1px $green;
-    }
-
-}
-/*
-.navbar-nav li {
-  text-align: center;
-}
-
-.navbar-nav li a {
-  text-transform: uppercase;
-  color:#FFF;
+.text-green {
+    color: $green;
 }
 
 
-.navbar-nav .active a{
-
-  color:$green;
-  border : dotted 1px $green;
-}
-*/
 .main-content {
 
   padding-top: 4rem;
@@ -72,11 +39,8 @@ body {
 }
 
 section {
-  min-height: 750px;
   padding-top: 50px;
   padding-bottom: 50px;
-  scroll-behavior: smooth;
-
 }
 
 .section-title {
@@ -99,25 +63,6 @@ section {
   background-color: $background2;
 }
 
-section.presentation {
-
-    .presentation-content {
-        margin-top: 13%;
-    }
-
-    .presentation-text {
-      color:$dark;
-      padding:5px;
-    }
-
-    .presentation-picture {
-        background-image: url('http://via.placeholder.com/300x300');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        height:250px;
-    }
-}
 
 .card-blur:hover, .blur:hover {
 
@@ -137,16 +82,6 @@ section.presentation {
 
 }
 
-.card-hobbies-container .fa-icon{
-    top:15px;
-    right:25px;
-}
-
-.fa-icon-hobby i{
-
-    font-size: 10rem;
-}
-
 .fa-icon i {
     font-size: 1.5rem;
     cursor: pointer;
@@ -156,25 +91,22 @@ section.presentation {
     color:$dark;
 }
 
-.card-hobbies-container {
-
-    position: relative;
-    margin-top: 50px;
-}
-
-.card-hobby {
-    padding:16px;
-    border: solid 8px #a1de74;
-}
-
-.card-hobby, .card-skill {
-    transition: opacity 0.3s linear;
-}
-
 
 .fa-info-circle:hover {
 
     color: $green;
+}
+
+.blur {
+    z-index:1024;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    visibility: hidden;
+    transition: visibility 0.5s, opacity 0.5s linear;
+    opacity: 0;
 }
 
 .blur-content {
@@ -182,324 +114,19 @@ section.presentation {
     padding: 40px 0 0 10px;
 }
 
-.blur {
-
-    width:100%;
-    height: 100%;
-    z-index:1024;
-    position: absolute;
-    top:0;
-    left:0;
-    visibility: hidden;
-    transition: visibility 0.5s, opacity 0.5s linear;
-    opacity: 0;
-}
 
 .blur-active {
     visibility: visible;
     opacity: 1;
 }
 
-/*
-section.presentation .presentation-content {
-  margin-top:13%;
+.skill-img, .experience-img {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin: 10px 0 10px 0;
 }
 
-
-section.presentation .presentation-text {
-  color:$dark;
-  padding:5px;
-}
-
-section.presentation .presentation-picture{
-  background-image: url('http://via.placeholder.com/300x300');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  height:250px;
-}
-*/
-
-section.skills {
-
-    h4 {
-        font-weight: 300;
-    }
-
-    .graph-legends {
-        margin: 0;
-    }
-
-    .skills-content {
-        padding-top: 50px;
-    }
-
-    .levels {
-        display: inline-block;
-        height: 25px;
-        width: 25px;
-        position: absolute;
-        border-radius: 50%;
-        top:18px;
-        right:35px;
-    }
-
-}
-/*
-section.skills h4 {
-  font-weight: 300;
-}
-
-section.skills .graph-legends {
-    margin: 0;
-}
-
-section.skills .skills-content {
-  padding-top: 50px;
-}
-
-section.skills .levels{
-    display: inline-block;
-    height: 25px;
-    width: 25px;
-    float: right;
-    border-radius: 50%;
-}
-*/
-section.skills .card {
-    z-index: 50;
-    position: relative;
-}
-
-section.skills .card a{
-    text-decoration: none;
-}
-
-section.skills .skill-img, section.experiences .experience-img{
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  margin: 10px 0 10px 0;
-}
-
-section.skills .skill-img {
-    height:100px;
-}
-
-
-section.experiences .experience-img {
-    height:300px;
-}
-
-section.experiences .card-experiences {
-    margin-bottom: 30px;
-    position: relative;
-    cursor: pointer;
-    max-width: 20rem;
-}
-/*
-section.skills .card-description {
-  position: absolute;
-  top:0;
-  display: none;
-  left:0;
-  word-wrap: break-word;
-  width:100%;
-  height: 100%;
-
-}
-*/
-
-
-
-section.skills .card-description-link {
-    position: absolute;
-    bottom:5px;
-    right:5px;
-}
-
-section.skills .card-description{
-  color: $dark;
-  font-size: 1rem;
-  z-index:60;
-}
-
-section.experiences .table{
-    margin: 0;
-}
-
-section.experiences .card-body, section.experiences tr{
-    padding:0;
-    margin: 0;
-}
-
-section.experiences .table td {
-
-    border-top: solid $green 1px;
-}
-
-.form-error {
-
-  display: block;
-  background-color: #f8d7da;
-  border: 1px solid rgba(0,0,0,.15);
-  color: #721c24;
-  margin-top: -4px;
-  padding:10px;
-  height:40.6px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.form-control:not(textarea) {
-    height:50px;
-}
-
-.level-1 {
-  background-color: #f8d7da;
-}
-
-.level-2 {
-  background-color: #fff3cd;
-}
-
-.level-3 {
-    background-color: $green;
-}
-
-.footer {
-
-  height: 75px;
-}
-
-.email-footer-badge {
-    background-color: $green;
-    position: relative;
-}
-
-.email-footer-text {
-
-    position: absolute;
-    top: 2px;
-    left: 25px;
-    width:130px;
-    height:15px;
-    color: $dark;
-    padding: 2px;
-    background-color: $green;
-    border-radius: .25rem;
-    opacity: 0;
-    transition: opacity 0.3s linear;
-    cursor:auto;
-    font-weight: bold;
-    font-size: 0.8rem;
-}
-
-.email-footer-text.active {
-    opacity: 1;
-}
-
-.email-footer-badge:hover{
-
-    opacity: 0.7;
-    cursor:pointer;
-}
-
-.years {
-    position:relative;
-    height:100px;
-    color:$white;
-    text-align: center;
-    z-index:20;
-    border-radius: .25rem;
-}
-
-/*
-.schools .year:not(:last-child) .box:after {
-
-    content: '';
-    width: 5px;
-    height: 217%;
-    background-color: $dark;
-    position: absolute;
-    top:100%;
-    right:50%;
-
-}
-*/
-.schools {
-    position: relative;
-}
-
-.schools:before {
-
-    content: '';
-    width: 7px;
-    height: 66%;
-    background-color: $dark;
-    position: absolute;
-    left: 20.5%;
-    top: 20%;
-}
-
-
-.schools-years {
-    height:100%;
-}
-
-.schools-years .col-12:nth-child(2) {
-    display: none;
-}
-
-.schools-item {
-    margin-top:75px;
-}
-
-.school-informations {
-    text-align:center;
-    border-radius: .25rem;
-}
-
-.school-information {
-    border-top: solid $green 2px;
-
-}
-
-.school-information-title {
-    border-right:  solid $green 2px;
-    padding: 5px;
-}
-
-.school-information-content {
-    padding: 5px;
-}
-/*
-.c:after {
-    content: '';
-    background-color: #c5c5c5;
-    height: 10px;
-    position: absolute;
-    left: -20px;
-    border: solid #f4f4f4 10px;
-    border-right: solid transparent 10px;
-    top: calc(50% - 10px);
-
-}
-*/
-
-.schools-item:after {
-    content: '';
-    width: 33.7%;
-    height: 3px;
-    background-color: $dark;
-    position: absolute;
-    left: 20.5%;
-    top: 50%;
-}
-
-.text-green {
-    color: $green;
-}
 
 .mask {
     width:100%;
@@ -532,103 +159,205 @@ section.experiences .table td {
 
 }
 
-.realisation-details {
-
-    position: relative;
-    width: 75%;
-    min-height: 512px;
-    top:12.5%;
-    left:12.5%;
-    z-index: 2000;
-    border-radius: 0.25rem;
-
-}
-
-.realisation-details-name {
-
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: 300;
-    height: 85px;
-}
-.slide {
-    position: absolute;
-    height: 300px;
-    bottom: 0;
-    left:0;
-    top:0;
-    right:0;
-    //width:100%;
-    //height:350px !important;
-
-}
-
-
-.bubble-box {
-    text-align: center;
-}
-
-.carousel-bubble {
-
-    width:50px;
-    height: 10px;
-    background-color: #FFF;
-    display: inline-block;
-    margin-left: 5px;
-    cursor: pointer;
-}
-
-.carousel-bubble.active {
-
-    background-color: $green;
-}
-
 .modal-active {
     overflow: hidden;
 }
 
-.previous, .next {
+.footer {
+    
+    height: 75px;
+}
+
+.email-footer-badge {
+
+    background-color: $green;
+    position: relative;
+}
+
+.email-footer-text {
+
     position: absolute;
-    top: calc(50% - 25px);
-    color:$white;
-    cursor: pointer;
-    height: 50px;
-    background-color: black;
-    opacity: 0.8;
-    width: 50px;
+    top: 2px;
+    left: 25px;
+    width:130px;
+    height:15px;
+    color: $dark;
+    padding: 2px;
+    background-color: $green;
+    border-radius: .25rem;
+    opacity: 0;
+    transition: opacity 0.3s linear;
+    cursor:auto;
+    font-weight: bold;
+    font-size: 0.8rem;
 }
 
-.bg-green {
-    background-color: $green !important;
+.email-footer-text.active {
+    opacity: 1;
+}
+
+.email-footer-badge:hover{
+
+    opacity: 0.7;
+    cursor:pointer;
+}
+
+  
+
+@media screen and (min-width: 767.99px) {
+
+    section.experiences {
+
+        .experiences-description-content {
+
+            padding: 60px 0;
+        }
+    
+
+    }
+   
+    section.formations {
+
+        .card-formation {
+            
+            font-size: 12px;
+        }
+        
+        .years {
+            flex-direction: column;
+            text-align: center;
+            transform: translateY(-50%) translateX(50%);
+            right:0;
+            z-index:2;
+            left:initial;
+          }
+          
+          .formation-figure {
+            width: 30px;
+            height: 30px;
+            background-color: #a1de74;
+            border: solid #343a40 3px;
+            transform: rotate(45deg);
+            margin: 2px 0 0 0;
+            padding: 0;
+            order:2;
+            display: block;
+          }
+
+          .row-formation {
+  
+            flex-direction: row;
+            margin-top: 0; 
+          }
+
+
+          .timeline-link {
+
+            background: #343a40;
+            height: 3px;
+            z-index:11;
+          }
+
+
+          .end-year {
+            padding: 5px 0;
+            order:1;
+          }
+        
+          .start-year {
+            padding: 5px 0;
+            order:3;
+          }
+        
+         
+          .school-item:nth-of-type(even) .years {
+            right:initial;
+            left:0;
+            transform: translateX(-50%) translateY(-50%);
+          }
+
+        
+          .school-item:nth-of-type(even) {
+            flex-direction: row-reverse;
+          }
+        
+          .school-item:nth-of-type(even) .card-formation {
+            order:1;
+          }
+        
+          .school-item:nth-of-type(even) .timeline-link {
+            order: 0;
+          }
+        
+       
+          .card-formation:after {
+        
+            content: '';
+            position:absolute;
+            width:15px;
+            height: 15px;
+            background-color: #343a40;
+            top:50%;
+            z-index:3;
+            transform: translateY(-50%) rotate(45deg);
+            left: -7.8px;
+            outline: solid #f8f8f8 3px;
+          }
+          
+          
+          .school-item:nth-of-type(odd) .card-formation:after{
+            right: -7.8px;
+            left: initial;
+          }
+          
+                 
+    }
+
+    section.hobbies {
+
+        .culture-items {
+            min-height: 500px;
+        }
+      
+        .badge {
+        
+            position: absolute;
+            margin: 0;
+        }
+    }
+
+    .fa.nav-icon {
+        font-size:2em;
+    }
+}
+
+@media screen and (min-width: 991px) {
+    
+    .regular-size {
+        display: block;
+    }
+    
+    section.hobbies {
+
+        .culture-btn {
+            margin-top: 0; 
+        }
+    }
+
+    .section {
+        min-height: 750px;
+    }
+
+    .collapse:not(.show) {
+        display: none;
+    }
+    
+   
+
 }
 
 
-.previous {
-    left:5px;
-}
-
-.next {
-    right:5px;
-}
-
-.previous i, .next i {
-    top: 22%;
-    position: absolute;
-}
-
-.previous i {
-    left: 20%;
-}
-
-.next i {
-    left:30%;
-}
-
-
-.previous:hover, .next:hover {
-    color: $green ;
-
-}
+/*
 
 .slide-out-left, .slide-out-right {
     position: absolute;
@@ -638,6 +367,8 @@ section.experiences .table td {
     bottom:0;
     width: 100%;
 }
+
+
 
 .slide-out-left {
     animation: slideOutLeft $slideAnimationDuration linear;
@@ -656,143 +387,6 @@ section.experiences .table td {
     animation: slideInRight $slideAnimationDuration linear;
 }
 
-
-
-.blablaTest > .row:not(:last-child), .blablaTest .row:last-child {
-    padding: 10px;
-}
-
-
-.blablaTest > .row:not(:last-child) {
-        border-bottom: solid $green 2px;
-}
-
-.realisation-details-close {
-    position: absolute;
-    top:10px;
-    right:10px;
-    color:$green;
-    cursor: pointer;
-}
-
-.realisation-details-close:hover {
-    opacity: 0.7;
-}
-
-@media (max-width: 575px) {
-
-    section.skills .levels {
-        width:1rem;
-        height: 1rem;
-        top:28px;
-        right:7px;
-
-    }
-
-    .card-skill .fa-icon {
-        top:5px;
-        right:12px;
-    }
-
-    .fa-icon i {
-        font-size: 1rem;
-    }
-
-    .fa-icon-hobby i{
-        font-size: 5rem;
-    }
-
-    .card-hobbies-container:last-of-type {
-        margin-left:0;
-    }
-
-    .card-hobbies-container h4{
-
-        font-size:1rem;
-    }
-
-    .years {
-        height: 50px;
-        border-radius: 0.25rem 0.25rem 0 0;
-        margin-top: 25px;
-        margin-bottom: 35px;
-        display: none;
-    }
-
-    .school-informations {
-        border-radius: 0 0 0.25rem 0.25rem;
-    }
-
-    .schools::before {
-        left:49%;
-        height: 90%;
-        top:5%;
-    }
-    .schools-item {
-        margin-top: 15px;
-    }
-
-    .schools-item::after {
-        display: none;
-    }
-
-    .years.collapse {
-        display: block;
-    }
-
-
-}
-
-@media (max-width: 991px) {
-
-    section {
-        min-height: 0;
-    }
-
-    .small-size.collapse {
-        display: flex;
-    }
-
-    .regular-size {
-        display: none;
-    }
-
-    .navbar-nav {
-        flex-direction: row;
-        justify-content: center;
-    }
-
-}
-
- @media (max-width: 991px) and (min-width: 576px){
-
-
-     section.experiences .experience-img {
-         height: 150px;
-     }
-
-     .realisation-details{
-         top:2%;
-     }
-
-     .schools::before {
-         left:16%;
-     }
-  }
-
-  @media (max-width: 1200px) and (min-width: 769px) {
-
-    .realisation-details {
-        width: 50%;
-        left:25%;
-    }
-
-    .navbar {
-
-        font-size: 0.9rem;
-    }
-
-  }
 
 @keyframes slideInLeft {
 
@@ -835,144 +429,4 @@ section.experiences .table td {
         transform: translateX(-100%);
     }
 }
-
-.toLeft-enter-active {
-    animation: toLeftEnter .5s;
-}
-
-.toLeft-leave-active {
-    animation: toLeftLeave .5s;
-}
-
-.toRight-enter-active {
-    animation: toRightEnter .5s;
-}
-
-.toRight-leave-active {
-    animation: toRightLeave .5s;
-}
-
-.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
-  /*opacity: 0;
- transform: translateY(30px);*/
-}
-
-@keyframes toLeftLeave {
-  from {
-    transform: translateX(0%);
-  }
-
-  to {
-    transform: translateX(-100%);
-    display: none;
-  }
-}
-
-@keyframes toLeftEnter {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes toRightEnter {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes toRightLeave {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
-
-
-.carousel {
-    position: relative;
-    min-height: 350px;
-    margin: auto;
-    overflow-x: hidden;
-}
-// .mySlide {
-//
-//   background-size: contain;
-//   background-repeat: no-repeat;
-//   background-position: center;
-//   bottom: 0;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//
-// }
-// .slidesContainer {
-//   position: relative;
-//   height: 300px;
-// }
-
-.toLeft-enter-active {
-    animation: toLeftEnter .5s;
-}
-
-.toLeft-leave-active {
-    animation: toLeftLeave .5s;
-}
-
-.toRight-enter-active {
-    animation: toRightEnter .5s;
-}
-
-.toRight-leave-active {
-    animation: toRightLeave .5s;
-}
-
-.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
-  /*opacity: 0;
- transform: translateY(30px);*/
-}
-
-@keyframes toLeftLeave {
-  from {
-    transform: translateX(0%);
-  }
-
-  to {
-    transform: translateX(-100%);
-    display: none;
-  }
-}
-
-@keyframes toLeftEnter {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes toRightEnter {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes toRightLeave {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
+*/

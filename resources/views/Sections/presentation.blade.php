@@ -16,7 +16,11 @@
         </div>
         <div class="col-12 col-md-6 col-lg-6">
             <div class="presentation-text">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae laudantium voluptates aperiam, mollitia similique quidem. Repellendus quia quam doloribus animi placeat error, magnam cum fugit ratione dolor. Nulla, nesciunt, harum.</p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum quidem illum dignissimos veritatis autem aliquam tempora assumenda, consectetur labore atque, repudiandae rem quis fuga deleniti ipsum adipisci nihil ipsam rerum?
+                Reprehenderit esse modi ratione neque, maiores aliquam omnis, nam perferendis architecto ipsam autem assumenda amet laudantium tempore velit? Veniam porro facere blanditiis recusandae et repellendus minima necessitatibus aut enim obcaecati!
+                Tempore voluptas, distinctio recusandae porro nisi maiores assumenda laboriosam doloremque unde voluptatum quos ex odit sunt iure dolorem! Et autem quibusdam explicabo impedit quo omnis? Dolorum explicabo tempore atque quas?
+              </p>
             </div>
         </div>
     </div>

@@ -32,11 +32,14 @@
                                     </span>
 
                                      <div id="card-blur" class="bg-dark card-blur card-skill">
-                                        <div class="card-header">
-                                            {{ $skill->name }}
+                                        <div class="card-header">                            
                                             @if ($skill->level->value)
                                                 <span class="levels level-{{$skill->level->value}}"></span>
                                             @endif
+                                            <span class="fa-icon">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                            </span>
+                                            {{ $skill->name }}
                                         </div>
                                         @if ($skill->media)
                                             <div class="card-body skill-img" style="background-image: url('{{ Storage::url($skill->media->path) }}')">

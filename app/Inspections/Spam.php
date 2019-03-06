@@ -12,7 +12,7 @@ class Spam
 
     /**
      * [detect]
-     * @param  String $client_ip
+     * @param  string $client_ip
      * @return boolean
      */
     public function detect(string $client_ip)

@@ -117,6 +117,118 @@ $(function() {
         });
     }
 
+    let allCoord = [];
+    let container = document.querySelector('.culture-items');
+    let buttons = document.querySelectorAll('.culture-btn');
+
+    function toogleActive(obj) {
+
+        buttons.forEach(function(b) {
+
+            if (b.classList.contains('active')) {
+                b.classList.remove('active');
+            }
+        })
+
+        obj.classList.add('active');
+    }
+
+    buttons.forEach(function(button) {
+
+
+        button.addEventListener('click', function() {
+            let buttonDataset = this.dataset.buttonType;
+
+            toogleActive(this);
+            
+            document.querySelectorAll('.badget').forEach(function(badge) {
+
+                badge.style.opacity = 1;
+
+                if (buttonDataset === 'all') {
+                    return;
+                }
+                
+                if(badge.dataset.cultureType !== buttonDataset) {
+                    badge.style.opacity = 0.4;
+                }
+            })
+            
+        })
+    });
+
+    function checkColision(newCoord, newObjWidth) {
+
+        let bool = true; 
+        let c = Math.floor((newCoord.x / 100) * container.clientWidth); 
+
+
+        allCoord.forEach(function(coord) {
+
+            let width = coord.size.width;
+            let height = coord.size.height;
+            let coordonates = coord.coordonate;
+            let margin = 15;
+            
+            
+            if 
+            (
+                ((c + width + margin) >= coordonates.x && c <= (coordonates.x + width + margin)) &&
+                ((newCoord.y + height + margin) >= coordonates.y && newCoord.y <= (coordonates.y + height + margin)) ||
+                (c < coordonates.x &&  ( (c + newObjWidth) >= coordonates.x) && ( (newCoord.y + height + margin) >= coordonates.y && newCoord.y <= (coordonates.y + height + margin) ) ) 
+                
+            ) {
+                    bool = false;
+                    return;
+            }
+
+        })
+
+        return bool;
+    }
+
+    function generateRandomNumber(max) {
+
+        return Math.floor(Math.random() * max);
+    }
+
+
+
+    function randomCoordonate(obj) {
+
+        let coord = {
+            x: generateRandomNumber(95), 
+            y:generateRandomNumber(500)
+        };
+        
+        return checkColision(coord, obj.clientWidth) === false ? randomCoordonate(obj) : coord;
+    }
+
+
+
+    let badges = document.querySelectorAll('.badget');
+
+
+    badges.forEach(function(badge) {
+
+        let coordonate = randomCoordonate(badge);
+
+            
+        badge.style.left = coordonate.x + '%';
+        badge.style.top = coordonate.y + "px";
+
+
+
+        allCoord.push(
+            {
+                size: {width: badge.clientWidth, height: badge.clientHeight}, 
+                coordonate: {x: badge.offsetLeft, y: coordonate.y},
+                obj: badge
+            }
+    );
+
+    });
+
 
     /** Ajax **/
 
@@ -255,6 +367,11 @@ $(function() {
             }, 1500);
         }
 
+    });
+
+    $('.navbar-toggler').on('click', function() {
+
+        $('#navbarNav').slideToggle();
     });
 
     $(window).on('load scroll', setCurrentSession);

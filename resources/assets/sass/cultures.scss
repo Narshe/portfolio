@@ -1,0 +1,30 @@
+section.hobbies {
+
+    .culture-sort {
+        text-align: center;
+        justify-content:center;
+        align-items: center;
+    }
+    .culture-items {
+        margin-top: 50px; 
+        position: relative;
+    }
+  
+    .badge {
+    
+        transition: opacity .3s;
+        margin: 10px;
+    }
+  
+  
+    .culture-btn {
+      background: #343a40;
+      color: #f4f4f4;
+      margin-top: 10px;
+    } 
+    
+    .active {
+        background-color: #a1de74;
+        color: #343a40;
+    }
+}

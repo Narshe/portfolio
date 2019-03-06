@@ -1,5 +1,4 @@
 <template>
-    <div class="col-12">
         <div class="carousel">
 
             <transition-group :name="direction">
@@ -13,12 +12,12 @@
             <span @click.prevent="next()" class="next">
                 <i class="fa fa fa-chevron-right fa-2x" aria-hidden="true"></i>
             </span>
+
+            <div class="col-12 bubble-box">
+                <span class="carousel-bubble" v-for="(slide, index) in slides" @click="changeIndex(index)" :class="{active: currentIndex == index}"></span>
+            </div>
         </div>
 
-        <div class="col-12 bubble-box">
-            <span class="carousel-bubble" v-for="(slide, index) in slides" @click="changeIndex(index)" :class="{active: currentIndex == index}"></span>
-        </div>
-    </div>
 </template>
 
 <script>

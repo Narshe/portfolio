@@ -12281,6 +12281,96 @@ $(function () {
         });
     }
 
+    var allCoord = [];
+    var container = document.querySelector('.culture-items');
+    var buttons = document.querySelectorAll('.culture-btn');
+
+    function toogleActive(obj) {
+
+        buttons.forEach(function (b) {
+
+            if (b.classList.contains('active')) {
+                b.classList.remove('active');
+            }
+        });
+
+        obj.classList.add('active');
+    }
+
+    buttons.forEach(function (button) {
+
+        button.addEventListener('click', function () {
+            var buttonDataset = this.dataset.buttonType;
+
+            toogleActive(this);
+
+            document.querySelectorAll('.badget').forEach(function (badge) {
+
+                badge.style.opacity = 1;
+
+                if (buttonDataset === 'all') {
+                    return;
+                }
+
+                if (badge.dataset.cultureType !== buttonDataset) {
+                    badge.style.opacity = 0.4;
+                }
+            });
+        });
+    });
+
+    function checkColision(newCoord, newObjWidth) {
+
+        var bool = true;
+        var c = Math.floor(newCoord.x / 100 * container.clientWidth);
+
+        allCoord.forEach(function (coord) {
+
+            var width = coord.size.width;
+            var height = coord.size.height;
+            var coordonates = coord.coordonate;
+            var margin = 15;
+
+            if (c + width + margin >= coordonates.x && c <= coordonates.x + width + margin && newCoord.y + height + margin >= coordonates.y && newCoord.y <= coordonates.y + height + margin || c < coordonates.x && c + newObjWidth >= coordonates.x && newCoord.y + height + margin >= coordonates.y && newCoord.y <= coordonates.y + height + margin) {
+                bool = false;
+                return;
+            }
+        });
+
+        return bool;
+    }
+
+    function generateRandomNumber(max) {
+
+        return Math.floor(Math.random() * max);
+    }
+
+    function randomCoordonate(obj) {
+
+        var coord = {
+            x: generateRandomNumber(95),
+            y: generateRandomNumber(500)
+        };
+
+        return checkColision(coord, obj.clientWidth) === false ? randomCoordonate(obj) : coord;
+    }
+
+    var badges = document.querySelectorAll('.badget');
+
+    badges.forEach(function (badge) {
+
+        var coordonate = randomCoordonate(badge);
+
+        badge.style.left = coordonate.x + '%';
+        badge.style.top = coordonate.y + "px";
+
+        allCoord.push({
+            size: { width: badge.clientWidth, height: badge.clientHeight },
+            coordonate: { x: badge.offsetLeft, y: coordonate.y },
+            obj: badge
+        });
+    });
+
     /** Ajax **/
 
     // $('#form-contact').on('submit', function(e) {
@@ -12412,6 +12502,11 @@ $(function () {
                 $('#email-footer-text').removeClass('active');
             }, 1500);
         }
+    });
+
+    $('.navbar-toggler').on('click', function () {
+
+        $('#navbarNav').slideToggle();
     });
 
     $(window).on('load scroll', setCurrentSession);
@@ -24620,7 +24715,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -24666,7 +24761,6 @@ module.exports = function listToStyles (parentId, list) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Slide_vue__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Slide_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Slide_vue__);
-//
 //
 //
 //
@@ -24885,91 +24979,89 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-12" }, [
-    _c(
-      "div",
-      { staticClass: "carousel" },
-      [
-        _c(
-          "transition-group",
-          { attrs: { name: _vm.direction } },
-          [
-            _vm._l(_vm.slides, function(slide, index) {
-              return _c("slide", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.currentIndex == index,
-                    expression: "currentIndex == index"
-                  }
-                ],
-                key: index,
-                attrs: { slide: slide }
-              })
-            }),
-            _vm._v(";\n         ")
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          {
-            staticClass: "previous",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                _vm.previous()
-              }
-            }
-          },
-          [
-            _c("i", {
-              staticClass: "fa fa-chevron-left fa-2x",
-              attrs: { "aria-hidden": "true" }
+  return _c(
+    "div",
+    { staticClass: "carousel" },
+    [
+      _c(
+        "transition-group",
+        { attrs: { name: _vm.direction } },
+        [
+          _vm._l(_vm.slides, function(slide, index) {
+            return _c("slide", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.currentIndex == index,
+                  expression: "currentIndex == index"
+                }
+              ],
+              key: index,
+              attrs: { slide: slide }
             })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          {
-            staticClass: "next",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                _vm.next()
-              }
-            }
-          },
-          [
-            _c("i", {
-              staticClass: "fa fa fa-chevron-right fa-2x",
-              attrs: { "aria-hidden": "true" }
-            })
-          ]
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-12 bubble-box" },
-      _vm._l(_vm.slides, function(slide, index) {
-        return _c("span", {
-          staticClass: "carousel-bubble",
-          class: { active: _vm.currentIndex == index },
+          }),
+          _vm._v(";\n     ")
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          staticClass: "previous",
           on: {
             click: function($event) {
-              _vm.changeIndex(index)
+              $event.preventDefault()
+              _vm.previous()
             }
           }
+        },
+        [
+          _c("i", {
+            staticClass: "fa fa-chevron-left fa-2x",
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          staticClass: "next",
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.next()
+            }
+          }
+        },
+        [
+          _c("i", {
+            staticClass: "fa fa fa-chevron-right fa-2x",
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-12 bubble-box" },
+        _vm._l(_vm.slides, function(slide, index) {
+          return _c("span", {
+            staticClass: "carousel-bubble",
+            class: { active: _vm.currentIndex == index },
+            on: {
+              click: function($event) {
+                _vm.changeIndex(index)
+              }
+            }
+          })
         })
-      })
-    )
-  ])
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -25109,6 +25201,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -25122,7 +25215,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
 
-        console.log(this.skill.level.value);
         if (this.skill.description) {
 
             this.descriptions = this.skill.description.split(',');

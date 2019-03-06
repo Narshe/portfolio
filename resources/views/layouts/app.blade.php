@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,13 +17,18 @@
   <body id="page-top">
 
       <nav id="navbar" class="navbar navbar-expand-lg fixed-top bg-dark">
-          <a style="text-align:center" class="navbar-brand col-12 col-md-2" href="#">Hadrien Giraudeau</a>
-          <div class="navbar-collapse col-12 col-md-8 col-lg-10" id="navbarNav">
+          <a class="navbar-brand" href="#">Hadrien Giraudeau</a>
+          <button id="navbar-toogler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </span>
+          </button>
+          <div class="navbar-collapse col-12 col-md-12 col-lg-10" id="navbarNav">
               <ul class="navbar-nav ml-auto">
                   <li class="nav-item presentation">
                       <span class="small-size collapse col-2">
                           <a class="nav-link" href="#presentation">
-                            <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-user nav-icon" aria-hidden="true"></i>
                           </a>
                       </span>
                       <span class="regular-size">
@@ -34,7 +39,7 @@
                   <li class="nav-item skills">
                       <span class="small-size collapse col-2">
                           <a class="nav-link" href="#skills">
-                            <i class="fa fa-code fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-code nav-icon" aria-hidden="true"></i>
                           </a>
                       </span>
                       <span class="regular-size">
@@ -45,7 +50,7 @@
                   <li class="nav-item experiences">
                       <span class="small-size collapse col-2">
                           <a class="nav-link" href="#experiences">
-                            <i class="fa fa-briefcase fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-briefcase nav-icon" aria-hidden="true"></i>
                           </a>
                       </span>
                       <span class="regular-size">
@@ -56,7 +61,7 @@
                   <li class="nav-item formations">
                       <span class="small-size collapse col-2">
                           <a class="nav-link" href="#formations">
-                            <i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-graduation-cap nav-icon" aria-hidden="true"></i>
                           </a>
                       </span>
                       <span class="regular-size">
@@ -67,18 +72,18 @@
                   <li class="nav-item hobbies">
                       <span class="small-size collapse col-2">
                           <a class="nav-link" href="#hobbies">
-                            <i class="fa fa-code fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-code nav-icon" aria-hidden="true"></i>
                           </a>
                       </span>
                       <span class="regular-size">
-                          <a class="nav-link" href="#hobbies">Loisirs
+                          <a class="nav-link" href="#hobbies">Culture
                           </a>
                       </span>
                   </li>
                   <li class="nav-item contact">
                       <span class="small-size collapse col-2">
                           <a class="nav-link" href="#contact">
-                            <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-envelope nav-icon" aria-hidden="true"></i>
                           </a>
                       </span>
                       <span class="regular-size">
@@ -87,7 +92,9 @@
                       </span>
                   </li>
               </ul>
+            
           </div>
+       
       </nav>
 
 
@@ -122,5 +129,5 @@
           </div>
       </footer>
       {{-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> --}}
-
+  
   </body>

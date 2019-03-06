@@ -8,22 +8,50 @@ use Illuminate\Validation\Rule;
 class Request extends FormRequest
 {
 
+    /**
+     * authorize
+     *
+     * @return boolean
+     */
     public function authorize()
     {
         return true;
     }
 
-    protected function uniqueRule($table, $id) {
+    /**
+     * uniqueRule
+     *
+     * @param  string $table
+     * @param  integer|null $id
+     *
+     * @return void
+     */
+    protected function uniqueRule(string $table, ?int $id) {
       return Rule::unique($table)->ignore($id);
     }
 
-    protected function existsWhere($table, $field, $value) {
+    /**
+     * existsWhere
+     *
+     * @param  string $table
+     * @param  string $field
+     * @param  mixed $value
+     *
+     * @return void
+     */
+    protected function existsWhere(string $table, string $field, $value) {
 
         return Rule::exists($table,'id')->where(function ($query) use ($field, $value) {
                   $query->where($field, $value);
          });
     }
 
+    
+    /**
+     * getCurrentDate
+     *
+     * @return string $date format YYYY-mm-dd
+     */
     protected function getCurrentDate() {
       $date = new \Datetime();
 

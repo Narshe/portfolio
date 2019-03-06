@@ -31,12 +31,13 @@ class SkillObserver {
 
     public function saving(Skill $skill)
     {
-        $test = $skill->path;
+        if(!request()->has('media')) return;
+
         if ($skill->path) {
             Storage::disk($this->disk)->delete($skill->path);
         }
 
         $skill->path = request('media')->store('skills', $this->disk);
     }
-    
+
 }

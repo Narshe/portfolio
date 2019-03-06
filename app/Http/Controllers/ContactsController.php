@@ -10,6 +10,12 @@ use App\Inspections\Spam;
 
 class ContactsController extends Controller
 {
+    
+    /**
+     * index
+     *
+     * @return View Admin/Contacts/index.blade.php
+     */
     public function index()
     {
 
@@ -17,8 +23,15 @@ class ContactsController extends Controller
 
         return view('Admin.Contacts.index', compact('contacts'));
     }
-
-
+    
+    
+    /**
+     * show
+     *
+     * @param  Contact $contact
+     *
+     * @return View Admin/Contacts/show.blade.php
+     */
     public function show(Contact $contact)
     {
         $contact->markAsRead();
@@ -26,6 +39,14 @@ class ContactsController extends Controller
         return view('Admin.Contacts.show', compact('contact'));
     }
 
+    /**
+     * store
+     *
+     * @param  ContactsRequest $request
+     * @param  Spam $spam
+     *
+     * @return json $contact
+     */
     public function store(ContactsRequest $request, Spam $spam)
     {
 
@@ -52,6 +73,13 @@ class ContactsController extends Controller
         }
     }
 
+    /**
+     * destroy
+     *
+     * @param  Contact $contact
+     *
+     * @return Redirect to Contacts/index
+     */
     public function destroy(Contact $contact)
     {
 

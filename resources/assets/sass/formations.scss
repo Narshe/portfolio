@@ -1,0 +1,132 @@
+section.formations {
+
+    .schools {
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+    }
+
+    .card-formation {
+        z-index: 10;
+    }
+
+    .years {
+        display: flex;
+        left:50%;
+        z-index:11;
+        border-radius: 5px;
+        background-color:#f8f8f8;
+        color: #343a40;
+        position: absolute;
+        transform: translateX(-50%) translateY(-50%);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .formation-figure {
+        display: none;
+    }
+
+    .row-formation {
+
+        flex-direction: column-reverse;
+        margin-top: 50px; 
+    }
+
+
+    .timeline-link {
+        background:none;
+        height:0px;
+    }
+
+    .end-year {
+
+        padding: 0 10px;
+        order:2;
+    }
+
+    .start-year {
+
+        padding: 0 10px;
+        order:1;
+    }
+
+    .school-item:last-child {
+        padding-bottom:50px; 
+    }
+
+
+    .timeline, .timeline-end, .timeline-start {
+        position:absolute;
+        z-index:1;
+    }   
+
+    .timeline {
+        top:0;
+        bottom:0;
+        width:3px;
+        background: #343a40;
+    }
+
+    .timeline-end {
+
+        bottom:-25px;
+        width:25px;
+        height: 25px;
+        background: #343a40;
+        border-radius:50%;
+    }
+
+    .timeline-start {
+
+        top:-26px;
+        color: #343a40;
+        text-align: center;
+        font-size:1.5em;
+    }
+
+    /*
+    .schools {
+        position: relative;
+    }
+    
+    
+    .schools-years .col-12:nth-child(2) {
+        display: none;
+    }
+    
+    .schools-item {
+        margin-top:75px;
+    }
+    
+    .school-informations {
+        text-align:center;
+        border-radius: .25rem;
+    }
+    
+    .school-information {
+        border-top: solid $green 2px;
+    
+    }
+    
+    .school-information-title {
+        border-right:  solid $green 2px;
+        padding: 5px;
+    }
+    
+    .school-information-content {
+        padding: 5px;
+    }
+    
+    .schools-item:after {
+        content: '';
+        width: 33.7%;
+        height: 3px;
+        background-color: $dark;
+        position: absolute;
+        left: 20.5%;
+        top: 50%;
+    }
+    */
+}

@@ -1,14 +1,15 @@
 <template>
     <div class="col-6 col-sm-5 col-md-4 col-lg-3">
         <div @click="blur = !blur" class="card card-skill text-white mb-3" style="max-width: 20rem;">
+          
             <span class="fa-icon">
                 <i class="fa" :class="blur ? 'fa-times-circle' : 'fa-info-circle'" aria-hidden="true"></i>
-            </span>
-
+            </span>    
              <div class="bg-dark card-blur card-skill" :style="blur ? 'opacity: 0.4' : ''">
                 <div class="card-header">
                     <span v-text="skill.name"></span>
-                    <span v-if="skill.level.value" :class="level"></span>
+                    <span v-if="skill.level.value" :class="level"></span> 
+                   
                 </div>
                 <div class="card-body skill-img" :style="image">
 
@@ -42,7 +43,6 @@
         },
         mounted() {
 
-            console.log(this.skill.level.value)
             if (this.skill.description) {
 
                 this.descriptions = this.skill.description.split(',')

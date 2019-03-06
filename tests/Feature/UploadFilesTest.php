@@ -19,11 +19,11 @@ class UploadFilesTest extends TestCase
     {
         $file =  UploadedFile::fake()->image('avatar.jpg');
 
-        $realisation = create('App\Realisation');
+        $realisation = createWithEvents('App\Realisation');
 
         $path = $file->store("testing/pictures/realisations/{$realisation->id}");
 
-        $media = create('App\Media', [
+        $media = createWithEvents('App\Media', [
             'path'  => $path,
             'mediable_id' => $realisation->id,
             'mediable_type' => 'App\Realisation'
@@ -88,7 +88,7 @@ class UploadFilesTest extends TestCase
         $file =  UploadedFile::fake()->image('avatar.jpg');
         $path = $file->store("skills", "testing");
 
-        $skill = create('App\Skill', [
+        $skill = createWithEvents('App\Skill', [
             'path' => $path
         ]);
 

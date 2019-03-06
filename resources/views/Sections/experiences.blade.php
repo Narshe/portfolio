@@ -7,15 +7,14 @@
     @foreach ($realisationsWithCategories as $category)
 
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 experiences-category">
                 <h4>{{ $category->name }}</h4>
             </div>
             <div class="col-12">
                 <div class="row justify-content-center justify-content-md-start">
                     @foreach ($category->realisations as $realisation)
-                        <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="col-10 col-sm-6 col-lg-4 card card-experiences">
 
-                            <div class="card card-experiences">
                                 <div class="card-header bg-dark text-white">
                                     {{ $realisation->name }}
                                 </div>
@@ -63,9 +62,8 @@
                                                   <h4>{{ $realisation->name }}</h4>
                                               </div>
                                           </div>
-                                          <div class="row">
-                                              <div class="col-12 col-xl-5">
-                                                  <div class="row">
+                                          <div class="row experiences-description-content">
+                                              <div class="col-12 col-lg-5">
                                                       @if ($realisation->medias->count() <= 1)
                                                          <div class="col-12">
                                                              @if ($realisation->medias->isEmpty())
@@ -83,50 +81,40 @@
                                                       @else
                                                          <carousel :data="{{ $realisation->medias}}"></carousel>
                                                       @endif
-                                                  </div>
                                               </div>
 
-                                              <div class="col-12 col-xl-6 offset-xl-1 text-white blablaTest">
-                                                  <div class="row align-items-center">
-                                                      <div class="col-4">
-                                                          <h5>Date de début</h5>
+                                              <div class="col-12 col-lg-6 text-white blablaTest">
+                                                  <div class="row align-items-center justify-content-center experiences-description-small">
+                                                      <div class="col-12 col-md-8">
+                                                          <strong>Date de début</strong>
                                                       </div>
-                                                      <div class="col-7 offset-1">
+                                                      <div class="col-12 col-md-8">
                                                           {{$realisation->date_begin->format('Y-m-d')}}
                                                       </div>
-                                                  </div>
-                                                  <div class="row align-items-center">
-                                                      <div class="col-4">
-                                                          <h5>Date de fin</h5>
+                                                      <div class="col-12 col-md-8">
+                                                          <strong>Date de fin</strong>
                                                       </div>
-                                                      <div class="col-7 offset-1">
+                                                      <div class="col-12 col-md-8">
                                                           {{$realisation->date_end->format('Y-m-d')}}
                                                       </div>
-                                                  </div>
-                                                  <div class="row align-items-center">
-                                                      <div class="col-4">
-                                                          <h5>Position</h5>
+                                                      <div class="col-12 col-md-8">
+                                                          <strong>Position</strong>
                                                       </div>
-                                                      <div class="col-7 offset-1">
+                                                      <div class="col-12 col-md-8">
                                                           {{$realisation->position}}
                                                       </div>
-                                                  </div>
-                                                  <div class="row align-items-center">
-                                                      <div class="col-4">
-                                                          <h5>Langages utilisés</h5>
+                                                      <div class="col-12 col-md-8">
+                                                          <strong>Langages utilisés</strong>
                                                       </div>
-                                                      <div class="col-7 offset-1">
+                                                      <div class="col-12 col-md-8">
                                                           @foreach ($realisation->skills as $skill)
                                                             <span class="badge badge-light">{{ $skill->name }}</span>
                                                           @endforeach
-
                                                       </div>
-                                                  </div>
-                                                  <div class="row">
-                                                      <div class="col-4">
-                                                          <h5>Description</h5>
+                                                      <div class="col-12 col-md-8">
+                                                          <strong>Description</strong>
                                                       </div>
-                                                      <div class="col-7 offset-1">
+                                                      <div class="col-12 col-md-8">
                                                           @if ($realisation->description)
 
                                                               {{$realisation->description}}
@@ -143,7 +131,7 @@
                                         <i class="fa fa-times-circle fa-3x" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                            </div>
+                            
                         </div>
                     @endforeach
                 </div>

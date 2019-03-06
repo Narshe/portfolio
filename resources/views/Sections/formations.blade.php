@@ -4,7 +4,7 @@
             <h1><span class="section-title-icon"><i class="fa fa-graduation-cap fa-x3" aria-hidden="true"></i></span>Formations</h1>
         </div>
     </div>
-    <div class="row schools">
+   <!-- <div class="row schools">
         <div class="col-12">
             <div class="row">
                 @foreach ($schools as $school)
@@ -67,6 +67,43 @@
                 @endforeach
 
             </div>
+        </div>
+    </div> -->
+    <div class="row schools">
+
+        <span class="timeline-start fa fa-graduation-cap"></span>
+        <span class="timeline"></span>
+        <span class="timeline-end"></span>
+        <div class="col-12">
+            @foreach ($schools as $school)
+                <div class="row school-item">    
+                    <div class="col-12 col-md-6 ">
+                        <div class="row align-items-center row-formation">
+                            <div class="card card-formation col-12 col-md-8 text-white bg-dark">
+                                <div class="card-header">Ecole blabla</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Primary card title</h5>
+                                    <p class="card-text">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium dignissimos repudiandae assumenda id ut. Commodi natus, labore, culpa, impedit beatae nam nesciunt hic corporis odit at iste. Expedita, cum! Commodi!
+                                    </p>
+                                </div>
+                            </div>
+                                    
+                            <div class="timeline-link col-12 col-md-4">
+                                <div class="years">
+                                    <div class="end-year">
+                                        {{$school->date_end->format('Y')}}
+                                    </div>
+                                    <figure class="formation-figure"></figure>
+                                    <div class="start-year">
+                                        {{$school->date_begin->format('Y')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>       
+                </div>      
+            @endforeach   
         </div>
     </div>
 </div>

@@ -1,0 +1,78 @@
+section.skills {
+
+    h4 {
+        font-weight: 300;
+    }
+
+    .graph-legends {
+        margin: 0;
+    }
+
+    .skills-content {
+        padding-top: 50px;
+    }
+
+    .levels {
+        width:1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        margin-right: 5px; 
+    }
+
+    .card-skill .fa-icon {
+        top:5px;
+        right:12px;
+    }
+
+    .fa-icon i {
+        font-size: 1rem;
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+  
+
+    .skill-img {
+        height:100px;
+    }
+
+    .card-description-link {
+        position: absolute;
+        bottom:5px;
+        right:5px;
+        border-color: $dark;
+    }
+
+    .card-description-link:hover {
+        position: absolute;
+        bottom:5px;
+        right:5px;
+        color: $green;
+        border-color: transparent;
+        background-color: $dark;
+    }
+    
+    .card-description{
+        color: $dark;
+        font-size: 1rem;
+        z-index:60;
+    }
+
+    .level-1 {
+        background-color: #f8d7da;
+    }
+    
+    .level-2 {
+        background-color: #fff3cd;
+    }
+    
+    .level-3 {
+        background-color: $green;
+    }
+      
+}
+

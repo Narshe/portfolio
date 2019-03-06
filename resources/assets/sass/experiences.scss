@@ -1,0 +1,242 @@
+section.experiences {
+
+
+    .table{
+        margin: 0;
+    }
+
+    .card-body, tr{
+        padding:0;
+        margin: 0;
+    }
+
+    .table td {
+
+        border-top: solid $green 1px;
+    }
+
+    .card-experiences {
+        margin-bottom: 30px;
+        position: relative;
+        cursor: pointer;
+        max-width: 20rem;
+        background-color: $background2;
+        border:transparent;
+    }
+
+    .experiences-category {
+        text-align: center;
+    }
+    
+    .realisation-details {
+
+        position: relative;
+        width: 65%;
+        min-height: 512px;
+        top:50%;
+        margin: 0 auto;
+        z-index: 2000;
+        border-radius: 0.25rem;
+        transform: translateY(-50%);
+    
+    }
+    
+    .realisation-details-name {
+    
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 300;
+        height: 85px;
+    }
+
+  
+    .carousel {
+        position: relative;
+        min-height: 250px;
+        margin: 0 auto;
+        overflow-x: hidden;
+        background-color: rgba(255,255,255,0.1);
+        margin-bottom: 20px; 
+    }
+
+    .carousel-bubble {
+
+        width:50px;
+        height: 10px;
+        background-color: #FFF;
+        display: inline-block;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+    
+    .carousel-bubble.active {
+    
+        background-color: $green;
+    }
+
+    .experiences-description-small {
+
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .experiences-description-small > div:nth-child(odd) {
+
+        color: $dark;
+        background-color: $green;
+    }
+
+    .experiences-description-small > div:nth-child(even) {
+
+       padding: 7px 0;
+    }
+
+    .next i, .previous i{
+        left: 53%;
+        top:54%;
+        transform: translateX(-50%) translateY(-50%);
+        position:absolute;
+    } 
+
+    .previous i {
+        left:47%;
+    }
+
+    .experiences-description-content {
+
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .realisation-details-close {
+        position: absolute;
+        top:10px;
+        right:10px;
+        color:$green;
+        cursor: pointer;
+    }
+
+    .realisation-details-close:hover {
+        opacity: 0.7;
+    }
+
+    .experience-img {
+        height:200px;
+    }
+
+    .slide {
+        position: absolute;
+        height: 215px;
+        bottom: 0;
+        left:0;
+        top:0;
+        right:0;
+        
+
+    }
+    
+    .bubble-box {
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+
+    }
+
+    .carousel-bubble {
+
+        width:50px;
+        height: 10px;
+        background-color: #FFF;
+        display: inline-block;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+    .carousel-bubble.active {
+
+        background-color: $green;
+    }
+ 
+    
+    .previous, .next {
+        position: absolute;
+        top: calc(50% - 25px);
+        color:$white;
+        cursor: pointer;
+        height: 50px;
+        background-color: $dark;
+        opacity: 0.8;
+        width: 50px;
+    }
+    
+
+    .previous {
+        left:5px;
+    }
+
+    .next {
+        right:5px;
+    }
+
+    .previous:hover, .next:hover {
+        color: $green ;
+    
+    }
+    
+
+
+    .toLeft-enter-active {
+        animation: toLeftEnter .5s;
+    }
+    
+    .toLeft-leave-active {
+        animation: toLeftLeave .5s;
+    }
+    
+    .toRight-enter-active {
+        animation: toRightEnter .5s;
+    }
+    
+    .toRight-leave-active {
+        animation: toRightLeave .5s;
+    }
+    
+    @keyframes toLeftLeave {
+      from {
+        transform: translateX(0%);
+      }
+    
+      to {
+        transform: translateX(-100%);
+        display: none;
+      }
+    }
+    
+    @keyframes toLeftEnter {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(0%);
+      }
+    }
+    
+    @keyframes toRightEnter {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(0%);
+      }
+    }
+    
+    @keyframes toRightLeave {
+      from {
+        transform: translateX(0%);
+      }
+      to {
+        transform: translateX(100%);
+      }
+    }
+}   

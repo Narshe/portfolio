@@ -38,7 +38,6 @@ class MenuComposer
 
         $menu = [];
 
-
         $this->addRoute('HomeAdmin', 'Dashboard', 'dashboard');
         $this->addRoute('Skills', 'Skills', 'gear');
         $this->addRoute('Realisations', 'Realisations', 'picture-o');

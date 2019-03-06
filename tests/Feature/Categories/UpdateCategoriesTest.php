@@ -41,7 +41,7 @@ class UpdateCategoriesTest extends TestCase
     /** @test */
     public function admin_can_delete_category()
     {
-        $category = create('App\Category');
+        $category = createWithEvents('App\Category');
         $skill = create('App\Skill', ['category_id' => $category->id]);
 
         $this->delete(route('CategoriesDestroy', ['id' => $category->id]));
